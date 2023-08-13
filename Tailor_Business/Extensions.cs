@@ -1,6 +1,6 @@
 ﻿namespace Tailor_Business
 {
-    public class Class1
+    public class Extensions
     {
 
     }
