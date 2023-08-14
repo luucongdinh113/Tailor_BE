@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tailor_BE", "Tailor_BE.csproj", "{3CF6DB38-D704-4F85-B0F4-15FA95EF70E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tailor_BE", "Tailor_BE.csproj", "{3CF6DB38-D704-4F85-B0F4-15FA95EF70E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tailor_Domain", "..\Tailor_Domain\Tailor_Domain.csproj", "{5B060FBB-0C32-469D-9614-5DAB633B64FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tailor_Domain", "..\Tailor_Domain\Tailor_Domain.csproj", "{5B060FBB-0C32-469D-9614-5DAB633B64FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tailor_Infrastructure", "..\Tailor_Infrastructure\Tailor_Infrastructure.csproj", "{72F65167-A959-4A3A-ABD2-88CCBA9F9EBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tailor_Infrastructure", "..\Tailor_Infrastructure\Tailor_Infrastructure.csproj", "{72F65167-A959-4A3A-ABD2-88CCBA9F9EBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tailor_Business", "..\Tailor_Business\Tailor_Business.csproj", "{D9D63FBF-360B-4F6A-BD45-2644AFB1F1A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tailor_Business", "..\Tailor_Business\Tailor_Business.csproj", "{D9D63FBF-360B-4F6A-BD45-2644AFB1F1A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

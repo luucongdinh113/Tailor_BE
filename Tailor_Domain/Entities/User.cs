@@ -20,6 +20,7 @@ namespace Tailor_Domain.Entities
         [Phone]
         public string Phone { get; set; } =default!;
         public DateTime DateOfJoing { get; set; } = default!;
+        public bool IsAdmin { get; set; }
     }
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {

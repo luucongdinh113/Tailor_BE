@@ -9,7 +9,7 @@ namespace Tailor_Infrastructure
     {
         //private readonly ILoggedInUserService _loggedInUserService;
         private readonly IDateTimeProvider _dateTimeProvider;
-        public TaiLorContext(DbContextOptions option, IDateTimeProvider dateTimeProvider, /*ILoggedInUserService loggedInUserService*/) : base(option) 
+        public TaiLorContext(DbContextOptions option, IDateTimeProvider dateTimeProvider/*ILoggedInUserService loggedInUserService*/) : base(option) 
         {
             _dateTimeProvider= dateTimeProvider;
             //_loggedInUserService = loggedInUserService;
@@ -40,11 +40,11 @@ namespace Tailor_Infrastructure
                 {
                     case EntityState.Modified:
                         entry.Entity.UpdatedDate = _dateTimeProvider.DatetTimeNowUtc;
-                        entry.Entity.UpdatedBy = _loggedInUserService.UserId.ToString();
+                        //entry.Entity.UpdatedBy = _loggedInUserService.UserId.ToString();
                         break;
                     case EntityState.Added:
                         entry.Entity.CreatedDate = _dateTimeProvider.DateTimeOffsetUtc;
-                        entry.Entity.CreatedBy = _loggedInUserService.UserId.ToString();
+                        //entry.Entity.CreatedBy = _loggedInUserService.UserId.ToString();
                         break;
                     default:
                         break;

@@ -27,12 +27,14 @@ namespace Tailor_Infrastructure.Services
                 ?? throw new Exception($"Can't find User has UserName {userInfo.UserName} and Password {userInfo.PassWord}");
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));;
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var role = user.IsAdmin ? "Admin" : "User";
 
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Email, user.UserName),
                 new Claim("DateOfJoing", user.DateOfJoing.ToString("yyyy-MM-dd")),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Role,role)
             };
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
@@ -42,38 +44,6 @@ namespace Tailor_Infrastructure.Services
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-        public async Task<bool> ValidateToken(string token)
-        {
-            try
-            {
-                var tokenHandler=new JwtSecurityTokenHandler();
-                var validationParam = GetValidationParam();
-                var validationResult = await tokenHandler.ValidateTokenAsync(token, validationParam);
-                if(validationResult == null)return false;
-                var jwtToken = (JwtSecurityToken)(validationResult!);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private TokenValidationParameters GetValidationParam()
-        {
-            var key = _config["Jwt:Key"];
-            var issuer = _config["Jwt:Issuer"];
-            var audience = _config["Jwt:Audience"];
-            return new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidIssuer=issuer,
-                ValidAudience= audience,
-                ClockSkew = TimeSpan.Zero
-            };
         }
     }
     public class UserModel

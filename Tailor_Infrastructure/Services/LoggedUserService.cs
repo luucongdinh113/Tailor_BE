@@ -11,8 +11,8 @@ namespace Tailor_Infrastructure.Services
             _httpContextAccessor = httpContextAccessor;
             string accessToken = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            UserId = userInfor.UserId;
-            UserName = userInfor.UserName;
+            //UserId = userInfor.UserId;
+            //UserName = userInfor.UserName;
         }
 
         public Guid UserId { get; }
