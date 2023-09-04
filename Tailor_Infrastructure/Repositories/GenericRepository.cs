@@ -36,9 +36,28 @@ namespace Tailor_Infrastructure.Repositories
             _dbSet.Remove(entity);
         }
 
-        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> fillter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
+        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, string includeProperties = "")
         {
-            throw new NotImplementedException();
+            IQueryable<TEntity> query = _dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
         }
 
         public virtual TEntity GetById(TKey id)
@@ -48,7 +67,7 @@ namespace Tailor_Infrastructure.Repositories
 
         public virtual void Insert(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Add(entity);
         }
 
         public virtual void Update(TEntity entity)

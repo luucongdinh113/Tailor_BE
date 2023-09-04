@@ -10,7 +10,7 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
 {
     public interface IGenericRepository<TEntity,Tkey> where TEntity:BaseEnity<Tkey>
     {
-        IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> fillter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "");
+        IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>>? fillter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, string includeProperties = "");
         TEntity GetById(Tkey id);
         void Insert(TEntity entity);
         void Delete(Tkey id);

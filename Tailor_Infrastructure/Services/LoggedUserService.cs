@@ -1,6 +1,8 @@
 ﻿using Tailor_Infrastructure.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using Tailor_Domain.Entities;
 
 namespace Tailor_Infrastructure.Services
 {
@@ -9,10 +11,12 @@ namespace Tailor_Infrastructure.Services
         private IHttpContextAccessor _httpContextAccessor;
         public LoggedUserService(IHttpContextAccessor httpContextAccessor) {
             _httpContextAccessor = httpContextAccessor;
-            string accessToken = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-
-            //UserId = userInfor.UserId;
-            //UserName = userInfor.UserName;
+            ClaimsPrincipal user = _httpContextAccessor.HttpContext.User;
+            if (user != null)
+            {
+                UserId = user.FindFirst(ClaimTypes.NameIdentifier)!=null?new Guid(user.FindFirst(ClaimTypes.NameIdentifier)!.Value):new Guid();
+                UserName = user.FindFirst(ClaimTypes.Name) !=null ? user.FindFirst(ClaimTypes.Name)!.Value:"";
+            }
         }
 
         public Guid UserId { get; }

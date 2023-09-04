@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Tailor_Infrastructure.Services.IServices;
 
 namespace Tailor_BE.Controllers
 {
@@ -14,17 +15,18 @@ namespace Tailor_BE.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILoggedUserService _logger1;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, ILoggedUserService logger1)
         {
             _logger = logger;
+            _logger1 = logger1;
         }
 
-
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            return new List<string> { "a", "b" };
+            return _logger1.UserName;
         }
     }
 }

@@ -3,7 +3,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
+using Tailor_Business;
 using Tailor_Infrastructure;
 
 namespace Tailor_BE
@@ -15,6 +17,7 @@ namespace Tailor_BE
             var builder = WebApplication.CreateBuilder(args);
             var config = builder.Configuration;
             // Add services to the container.
+            builder.Services.AddServiceBusiness(config);
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -51,30 +54,42 @@ namespace Tailor_BE
                                     Id = "Bearer"
                                 }
                             },
-                          new string[] {}
+                          Array.Empty<string>()
                     }
                 });
             });
-            builder.Services.AddAuthentication(option =>
-            {
-                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-            }).AddJwtBearer(options =>
+            builder.Services.AddAuthorization(options =>
             {
+                options.AddPolicy("AdminOnly", policy =>
+                    policy.RequireClaim("Admin"));
+            });
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        // Log the authentication failure reason
+                        Console.WriteLine(context.Exception);
+                        return Task.CompletedTask;
+                    }
+                };
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidateLifetime = false,
+                    ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = config["Jwt:Issuer"],
                     ValidAudience = config["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"])) //Configuration["JwtToken:SecretKey"]
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"])), //Configuration["JwtToken:SecretKey"],
+                    ClockSkew=TimeSpan.Zero
                 };
             });
 
-            builder.Services.AddServiceInfrastructure(config);
 
             //config log
             builder.Host.ConfigureLogging(logging =>
@@ -83,7 +98,7 @@ namespace Tailor_BE
                 logging.AddConsole();
             });
             //config MediatR
-            builder.Services.AddMediatR(typeof(StartUp));
+            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
             var app = builder.Build();
 
@@ -99,12 +114,12 @@ namespace Tailor_BE
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-            app.UseAuthentication();
-
 
             app.MapControllers();
 
