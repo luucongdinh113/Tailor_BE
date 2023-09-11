@@ -13,11 +13,11 @@ namespace Tailor_Domain.Entities
     {
         [ForeignKey(nameof(ReceiverUserId))]
         public Guid ReceiverUserId { get; set; }
-        public User ReceiverUser { get; set; } 
+        public User ReceiverUser { get; set; } = default!;
 
         [ForeignKey(nameof(SenderUserId))]
         public Guid SenderUserId { get; set; }
-        public User SenderUser { get; set; } 
+        public User SenderUser { get; set; } = default!;
         public string Content { get; set; } = default!;
         public string UpLoadFile { get; set; } = default!;
         public bool IsRead { get; set; } = false;

@@ -8,5 +8,10 @@ namespace Tailor_Infrastructure.Dto.Inventory
 {
     public class CreateInventory
     {
+        public int InventoryCategoryId { get; set; }
+        public string Name { get; set; } = default!;
+        public string Describe { get; set; } = default!;
+        public string Images { get; set; } = default!;
+        public decimal Price { get; set; }
     }
 }

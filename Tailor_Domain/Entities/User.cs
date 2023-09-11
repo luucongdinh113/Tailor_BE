@@ -25,7 +25,7 @@ namespace Tailor_Domain.Entities
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;
         public DateTime DateOfJoing { get; set; } = default!;
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get; set; } = false;
 
         [ForeignKey(nameof(MeasurementId))]
         public int MeasurementId { get; set; }

@@ -11,11 +11,14 @@ namespace Tailor_Infrastructure.Services
         private IHttpContextAccessor _httpContextAccessor;
         public LoggedUserService(IHttpContextAccessor httpContextAccessor) {
             _httpContextAccessor = httpContextAccessor;
-            ClaimsPrincipal user = _httpContextAccessor.HttpContext.User;
-            if (user != null)
+            if (_httpContextAccessor.HttpContext != null)
             {
-                UserId = user.FindFirst(ClaimTypes.NameIdentifier)!=null?new Guid(user.FindFirst(ClaimTypes.NameIdentifier)!.Value):new Guid();
-                UserName = user.FindFirst(ClaimTypes.Name) !=null ? user.FindFirst(ClaimTypes.Name)!.Value:"";
+                ClaimsPrincipal user = _httpContextAccessor.HttpContext.User;
+                if (user != null)
+                {
+                    UserId = user.FindFirst(ClaimTypes.NameIdentifier) != null ? new Guid(user.FindFirst(ClaimTypes.NameIdentifier)!.Value) : new Guid();
+                    UserName = user.FindFirst(ClaimTypes.Name) != null ? user.FindFirst(ClaimTypes.Name)!.Value : "";
+                }
             }
         }
 

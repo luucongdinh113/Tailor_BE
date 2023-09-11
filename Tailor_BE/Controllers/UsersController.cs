@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Tailor_Business.Commands.User;
 using Tailor_Infrastructure.Services;
 using Tailor_Infrastructure.Services.IServices;
 
@@ -31,6 +32,11 @@ namespace Tailor_BE.Controllers
         //{
         //    return Ok(await _mediator.Send(command, cancellation));
         //}
-
+        [AllowAnonymous]
+        [HttpPost("CreateUser")]
+        public async Task<IActionResult> CreateUser(CreateUserCommand request,CancellationToken cancellation)
+        {
+            return Ok(await _mediator.Send(request, cancellation));
+        }
     }
 }

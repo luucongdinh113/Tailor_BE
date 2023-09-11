@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ namespace Tailor_Infrastructure
     public static class Extensions
     {
         public static IServiceCollection AddServiceInfrastructure(this IServiceCollection services, IConfiguration configuration) {
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<IJWTService, JWTSerivce>();
             services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();

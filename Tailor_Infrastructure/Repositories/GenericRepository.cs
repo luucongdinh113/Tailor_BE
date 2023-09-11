@@ -25,6 +25,7 @@ namespace Tailor_Infrastructure.Repositories
             TEntity entity = _dbSet.Find(id) ?? throw new Exception($"Has not found {nameof(entity)} has id ({id})");
 
             Delete(entity);
+            _context.SaveChanges();
         }
 
         public virtual void Delete(TEntity entity)
@@ -34,6 +35,7 @@ namespace Tailor_Infrastructure.Repositories
                 _dbSet.Attach(entity);
             }
             _dbSet.Remove(entity);
+            _context.SaveChanges();
         }
 
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, string includeProperties = "")
@@ -68,11 +70,13 @@ namespace Tailor_Infrastructure.Repositories
         public virtual void Insert(TEntity entity)
         {
             _dbSet.Add(entity);
+            _context.SaveChanges();
         }
 
         public virtual void Update(TEntity entity)
         {
             _dbSet.Update(entity);
+            _context.SaveChanges();
         }
     }
 }

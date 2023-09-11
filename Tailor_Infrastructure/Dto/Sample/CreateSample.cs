@@ -8,5 +8,6 @@ namespace Tailor_Infrastructure.Dto.Sample
 {
     public class CreateSample
     {
+
     }
 }

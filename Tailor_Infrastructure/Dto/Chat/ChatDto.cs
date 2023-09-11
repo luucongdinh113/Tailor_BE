@@ -1,16 +1,15 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tailor_Business.Dtos;
-using Tailor_Infrastructure.Repositories.IRepositories;
-
-namespace Tailor_Business.Queries.Chat
+﻿namespace Tailor_Infrastructure.Dto.Chat
 {
     public class ChatDto
     {
+        public int Id { get; set; }
+        public Guid ReceiverUserId { get; set; }
+        public Tailor_Domain.Entities.User ReceiverUser { get; set; } = default!;
 
+        public Guid SenderUserId { get; set; }
+        public Tailor_Domain.Entities.User SenderUser { get; set; } = default!;
+        public string Content { get; set; } = default!;
+        public string UpLoadFile { get; set; } = default!;
+        public bool IsRead { get; set; } = false;
     }
 }

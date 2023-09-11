@@ -8,5 +8,8 @@ namespace Tailor_Infrastructure.Dto.UserSample
 {
     public class UpdateUserSample
     {
+        public int Id { get; set; }
+        public Guid UserId { get; set; }
+        public int SampleId { get; set; }
     }
 }

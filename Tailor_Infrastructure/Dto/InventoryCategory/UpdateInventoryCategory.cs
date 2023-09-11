@@ -8,5 +8,7 @@ namespace Tailor_Infrastructure.Dto.InventoryCategory
 {
     public class UpdateInventoryCategory
     {
+        public int Id { get; set; }
+        public string Name { get; set; } = default!;
     }
 }

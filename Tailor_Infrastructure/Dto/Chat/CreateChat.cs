@@ -8,5 +8,9 @@ namespace Tailor_Infrastructure.Dto.Chat
 {
     public class CreateChat
     {
+        public Guid ReceiverUserId { get; set; }
+        public Guid SenderUserId { get; set; }
+        public string Content { get; set; } = default!;
+        public string UpLoadFile { get; set; } = default!;
     }
 }

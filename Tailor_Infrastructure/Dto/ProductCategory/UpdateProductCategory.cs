@@ -8,5 +8,7 @@ namespace Tailor_Infrastructure.Dto.ProductCategory
 {
     public class UpdateProductCategory
     {
+        public int Id { get; set; }
+        public string Name { get; set; } = default!;
     }
 }

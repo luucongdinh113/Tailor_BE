@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,21 @@ namespace Tailor_Business.Queries.Chat
         public class GetChatUserHandler : IRequestHandler<GetChatByUserQuery, IEnumerable<ChatDto>>
         {
             private readonly IUnitOfWorkRepository _unitOfWork;
-            public GetChatUserHandler(IUnitOfWorkRepository unitOfWork)
+            private readonly IMapper _mapper;
+            public GetChatUserHandler(IUnitOfWorkRepository unitOfWork,IMapper mapper)
             {
                 _unitOfWork = unitOfWork;
+                _mapper = mapper;
             }
-            async Task<IEnumerable<ChatDto>> IRequestHandler<GetChatByUserQuery, IEnumerable<ChatDto>>.Handle(GetChatByUserQuery request, CancellationToken cancellationToken)
+            Task<IEnumerable<ChatDto>> IRequestHandler<GetChatByUserQuery, IEnumerable<ChatDto>>.Handle(GetChatByUserQuery request, CancellationToken cancellationToken)
             {
-                var a = _unitOfWork.ChatRepository.Get(c => c.ReceiverUserId.Equals(request.UserId));
-                return new List<ChatDto>();
+                var chatDbs = _unitOfWork.ChatRepository.Get(c => c.ReceiverUserId.Equals(request.UserId));
+                var chatDtos = new List<ChatDto>();
+                foreach(var chatDb in chatDbs)
+                {
+                    chatDtos.Add(_mapper.Map<ChatDto>(chatDb));
+                }    
+                return Task.FromResult<IEnumerable<ChatDto>>(chatDtos);
             }
         }
     }

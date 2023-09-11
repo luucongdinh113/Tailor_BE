@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Task = Tailor_Domain.Entities.Task;
 namespace Tailor_Infrastructure.Repositories.IRepositories
 {
-    public interface ITaskRepository
+    public interface ITaskRepository : IGenericRepository<Task, int>
     {
     }
 }

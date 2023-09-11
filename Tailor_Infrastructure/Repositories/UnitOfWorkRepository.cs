@@ -11,16 +11,18 @@ using Task = System.Threading.Tasks.Task;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Tailor_Infrastructure.Services.IServices;
 using System.Drawing.Printing;
+using AutoMapper;
 
 namespace Tailor_Infrastructure.Repositories
 {
     public class UnitOfWorkRepository : IUnitOfWorkRepository
     {
         private readonly TaiLorContext _dbContext;
-        private IDbContextTransaction? _dbContextTransaction;
         private readonly ILoggedUserService _loggedInUserService;
         private readonly IDateTimeProvider _dateTimeProvider;
+        private readonly IMapper _mapper;
 
+        private IDbContextTransaction? _dbContextTransaction;
         private IChatRepository? _chatRepository;
         private IInventoryCategoryRepository? _inventoryCategoryRepository;
         private IInventoryRepository? _inventoryRepository;
@@ -33,24 +35,25 @@ namespace Tailor_Infrastructure.Repositories
         private IUserSampleRepository? _userSampleRepository;
         private IUserRepository? _userRepository;
 
-        public UnitOfWorkRepository(TaiLorContext context, IDateTimeProvider dateTimeProvider, ILoggedUserService loggedInUserService)
+        public UnitOfWorkRepository(TaiLorContext context, IDateTimeProvider dateTimeProvider, ILoggedUserService loggedInUserService, IMapper mapper)
         {
             _dbContext = context;
             _dateTimeProvider = dateTimeProvider;
             _loggedInUserService = loggedInUserService;
+            _mapper = mapper;
         }
 
-        public IChatRepository ChatRepository=>_chatRepository??new ChatRepository(_dbContext,this);
-        public IInventoryCategoryRepository InventoryCategoryRepository => _inventoryCategoryRepository?? new InventoryCategoryRepository(_dbContext,this);
-        public IInventoryRepository InventoryRepository => _inventoryRepository ?? new InventoryRepository(_dbContext, this);
-        public IMeasurement_InformationRepository MeasurementInformationRepository => _measurementInformationRepository ?? new MeasurementInformationRepository(_dbContext, this);
-        public INotifyRepository NotifyRepository => _notifyRepository ?? new NotifyRepository(_dbContext, this);
-        public IProductCategoryRepository ProductCategoryRepository => _productCategoryRepository ?? new ProductCategoryRepository(_dbContext, this);
-        public IProductRepository ProductRepository => _productRepository ?? new ProductRepository(_dbContext, this);
-        public ISampleRepository SampleRepository => _sampleRepository ?? new SampleRepository(_dbContext, this);
-        public ITaskRepository TaskRepository => _taskRepository ?? new TaskRepository(_dbContext, this);
-        public IUserSampleRepository UserSampleRepository => _userSampleRepository ?? new UserSampleRepository(_dbContext, this);
-        public IUserRepository UserRepository => _userRepository ?? new UserRepository(_dbContext, this);
+        public IChatRepository ChatRepository=>_chatRepository??new ChatRepository(_dbContext,this,_mapper);
+        public IInventoryCategoryRepository InventoryCategoryRepository => _inventoryCategoryRepository?? new InventoryCategoryRepository(_dbContext,this, _mapper);
+        public IInventoryRepository InventoryRepository => _inventoryRepository ?? new InventoryRepository(_dbContext, this, _mapper);
+        public IMeasurement_InformationRepository MeasurementInformationRepository => _measurementInformationRepository ?? new MeasurementInformationRepository(_dbContext, this, _mapper);
+        public INotifyRepository NotifyRepository => _notifyRepository ?? new NotifyRepository(_dbContext, this, _mapper);
+        public IProductCategoryRepository ProductCategoryRepository => _productCategoryRepository ?? new ProductCategoryRepository(_dbContext, this, _mapper);
+        public IProductRepository ProductRepository => _productRepository ?? new ProductRepository(_dbContext, this, _mapper);
+        public ISampleRepository SampleRepository => _sampleRepository ?? new SampleRepository(_dbContext, this, _mapper);
+        public ITaskRepository TaskRepository => _taskRepository ?? new TaskRepository(_dbContext, this, _mapper);
+        public IUserSampleRepository UserSampleRepository => _userSampleRepository ?? new UserSampleRepository(_dbContext, this, _mapper );
+        public IUserRepository UserRepository => _userRepository ?? new UserRepository(_dbContext, this, _mapper);
 
         public async Task<IDisposable> BeginTransactionAsync(CancellationToken cancellationToken = default)
         {
@@ -64,6 +67,12 @@ namespace Tailor_Infrastructure.Repositories
             {
                 await _dbContextTransaction.CommitAsync(cancellationToken);
             }
+        }
+
+        public void RollBack(CancellationToken cancellationToken = default)
+        {
+            if (_dbContextTransaction != null)
+                _dbContextTransaction.Rollback();
         }
 
         public async Task<int> SaveChangesAsync()

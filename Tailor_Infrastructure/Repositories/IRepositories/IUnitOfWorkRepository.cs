@@ -26,6 +26,7 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
 
         Task<IDisposable> BeginTransactionAsync(CancellationToken cancellationToken = default);
         Task CommitTransactionAsync(CancellationToken cancellationToken = default);
+        void RollBack(CancellationToken cancellationToken = default);
         Task<int> SaveChangesAsync();
     }
 }
