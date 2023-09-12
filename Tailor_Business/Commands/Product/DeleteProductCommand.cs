@@ -1,0 +1,31 @@
+﻿using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Tailor_Infrastructure.Repositories.IRepositories;
+
+namespace Tailor_Business.Commands.User
+{
+    public class DeleteProductCommand:IRequest<Unit>
+    {
+        #region parameter
+        public int Id { get; set; }
+        #endregion
+        public class DeleteProductHandlerCommand : IRequestHandler<DeleteProductCommand, Unit>
+        {
+            private readonly IUnitOfWorkRepository _unitOfWorkRepository;
+            public DeleteProductHandlerCommand(IUnitOfWorkRepository unitOfWorkRepository)
+            {
+                _unitOfWorkRepository = unitOfWorkRepository;
+            }
+
+            public async Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+            {
+                _unitOfWorkRepository.ProductRepository.Delete(request.Id);
+                return Unit.Value;
+            }
+        }
+    }
+}

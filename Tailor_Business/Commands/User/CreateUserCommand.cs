@@ -2,6 +2,7 @@
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,10 @@ namespace Tailor_Business.Commands.User
         public DateTime DateOfJoing { get; set; } = DateTime.Now;
         public bool? IsAdmin { get; set; } = false;
         public int? MeasurementId { get; set; }
+
+        public string UserName { get; set; } = default!;
+
+        public string PassWord { get; set; } = default!;
         #endregion
         public class CreateUserHanlderCommand : IRequestHandler<CreateUserCommand,Unit>
         {

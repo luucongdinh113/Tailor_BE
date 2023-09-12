@@ -10,12 +10,12 @@ namespace Tailor_BE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class NotifyController : ControllerBase
     {
         private readonly IJWTService _jWTService;
         private readonly IMediator _mediator;
 
-        public UsersController(IJWTService jWTService, IMediator mediator)
+        public NotifyController(IJWTService jWTService, IMediator mediator)
         {
             _jWTService = jWTService;
             _mediator = mediator;
@@ -28,22 +28,22 @@ namespace Tailor_BE.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("CreateUser")]
-        public async Task<IActionResult> CreateUser(CreateUserCommand request,CancellationToken cancellation)
+        [HttpPost("CreateNotify")]
+        public async Task<IActionResult> CreateNotify(CreateUserCommand request,CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
 
         [AllowAnonymous]
-        [HttpDelete("DeleteUser")]
-        public async Task<IActionResult> DeleteUser(DeleteUserCommand request, CancellationToken cancellation)
+        [HttpDelete("DeleteNotify")]
+        public async Task<IActionResult> DeleteNotify(DeleteUserCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
 
         [AllowAnonymous]
-        [HttpPut("UpdateUser")]
-        public async Task<IActionResult> UpdateUser(UpdateUserCommand request, CancellationToken cancellation)
+        [HttpPut("UpdateNotify")]
+        public async Task<IActionResult> UpdateNotify(UpdateUserCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }

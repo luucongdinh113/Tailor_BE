@@ -27,6 +27,13 @@ namespace Tailor_Infrastructure
         public AutoMapper()
         {
             CreateMap<CreateUserCommand, CreateUser>();
+            CreateMap<UpdateUserCommand, UpdateUser>();
+
+            CreateMap<CreateTaskCommand, CreateTask>();
+            CreateMap<UpdateTaskCommand, UpdateTask>();
+
+            CreateMap<CreateProductCommand, CreateProduct>();
+            CreateMap<UpdateProductCommand, UpdateProduct>();
         }
     }
 }

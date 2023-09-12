@@ -10,40 +10,34 @@ namespace Tailor_BE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class ProductController : ControllerBase
     {
         private readonly IJWTService _jWTService;
         private readonly IMediator _mediator;
 
-        public UsersController(IJWTService jWTService, IMediator mediator)
+        public ProductController(IJWTService jWTService, IMediator mediator)
         {
             _jWTService = jWTService;
             _mediator = mediator;
         }
-        [AllowAnonymous]
-        [HttpPost(nameof(Auth))]
-        public IActionResult Auth([FromBody] UserModel data)
-        {
-            return Ok(_jWTService.GenerateJSONWebToken(data));
-        }
 
         [AllowAnonymous]
-        [HttpPost("CreateUser")]
-        public async Task<IActionResult> CreateUser(CreateUserCommand request,CancellationToken cancellation)
+        [HttpPost("CreateProduct")]
+        public async Task<IActionResult> CreateProduct(CreateProductCommand request,CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
 
         [AllowAnonymous]
-        [HttpDelete("DeleteUser")]
-        public async Task<IActionResult> DeleteUser(DeleteUserCommand request, CancellationToken cancellation)
+        [HttpDelete("DeleteProduct")]
+        public async Task<IActionResult> DeleteProduct(DeleteProductCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
 
         [AllowAnonymous]
-        [HttpPut("UpdateUser")]
-        public async Task<IActionResult> UpdateUser(UpdateUserCommand request, CancellationToken cancellation)
+        [HttpPut("UpdateProduct")]
+        public async Task<IActionResult> UpdateProduct(UpdateProductCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }

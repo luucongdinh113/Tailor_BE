@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,7 @@ namespace Tailor_Infrastructure.Dto.User
         public DateTime DateOfJoing { get; set; } = default!;
         public bool IsAdmin { get; set; }
         public int MeasurementId { get; set; }
+        public string UserName { get; set; } = default!;
+        public string PassWord { get; set; } = default!;
     }
 }

@@ -10,12 +10,12 @@ namespace Tailor_BE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class MeasurementInforController : ControllerBase
     {
         private readonly IJWTService _jWTService;
         private readonly IMediator _mediator;
 
-        public UsersController(IJWTService jWTService, IMediator mediator)
+        public MeasurementInforController(IJWTService jWTService, IMediator mediator)
         {
             _jWTService = jWTService;
             _mediator = mediator;
@@ -42,7 +42,7 @@ namespace Tailor_BE.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPut("UpdateUser")]
+        [HttpPut("UpdateeUser")]
         public async Task<IActionResult> UpdateUser(UpdateUserCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));

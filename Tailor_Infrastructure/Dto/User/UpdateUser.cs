@@ -19,5 +19,7 @@ namespace Tailor_Infrastructure.Dto.User
         public bool IsAdmin { get; set; }
 
         public int MeasurementId { get; set; }
+        public string UserName { get; set; } = default!;
+        public string PassWord { get; set; } = default!;
     }
 }

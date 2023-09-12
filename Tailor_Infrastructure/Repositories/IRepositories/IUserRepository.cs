@@ -11,5 +11,6 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
     public interface IUserRepository: IGenericRepository<User, Guid>
     {
         void CreateUser(CreateUser userInput);
+        UserDto UpdateUser(UpdateUser userInput);
     }
 }

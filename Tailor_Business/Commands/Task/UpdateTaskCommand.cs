@@ -1,0 +1,49 @@
+﻿using AutoMapper;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Tailor_Infrastructure.Dto.Task;
+using Tailor_Infrastructure.Dto.User;
+using Tailor_Infrastructure.Repositories.IRepositories;
+
+namespace Tailor_Business.Commands.User
+{
+    public class UpdateTaskCommand: IRequest<TaskDto>
+    {
+        #region param
+        public int Id { get; set; }
+        public Guid? UserId { get; set; }
+
+        public int? SampleId { get; set; }
+
+        public int? ProductId { get; set; }
+
+        public string Content { get; set; } = default!;
+        public string Status { get; set; } = default!;
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public int Priority { get; set; }
+
+        #endregion
+        public class UpdateTaskHandlerCommand : IRequestHandler<UpdateTaskCommand, TaskDto>
+        {
+            private readonly IUnitOfWorkRepository _unitOfWorkRepository;
+            private readonly IMapper _mapper;
+            public UpdateTaskHandlerCommand(IUnitOfWorkRepository unitOfWorkRepository, IMapper mapper)
+            {
+                _unitOfWorkRepository = unitOfWorkRepository;
+                _mapper = mapper;
+            }
+
+            public async Task<TaskDto> Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
+            {
+                var updateTask = _mapper.Map<UpdateTask>(request);
+                return _unitOfWorkRepository.TaskRepository.UpdateTask(updateTask);
+            }
+        }
+    }
+}

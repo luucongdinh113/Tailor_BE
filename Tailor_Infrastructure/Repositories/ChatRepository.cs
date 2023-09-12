@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,11 @@ namespace Tailor_Infrastructure.Repositories
     public class ChatRepository : GenericRepository<Chat, int>, IChatRepository
     {
         private IUnitOfWorkRepository _unitOfWorkRepository;
-        public ChatRepository(TaiLorContext context, IUnitOfWorkRepository unitOfWorkRepository) : base(context)
+        private readonly IMapper _mapper;
+        public ChatRepository(TaiLorContext context, IUnitOfWorkRepository unitOfWorkRepository, IMapper mapper) : base(context)
         {
             _unitOfWorkRepository = unitOfWorkRepository;
+            _mapper = mapper;
         }
     }
 }

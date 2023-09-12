@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tailor_Domain.Entities;
+using Tailor_Infrastructure.Common;
 using Tailor_Infrastructure.Dto.User;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
@@ -22,9 +23,19 @@ namespace Tailor_Infrastructure.Repositories
         public void CreateUser(CreateUser userInput)
         {
             var user = _mapper.Map<User>(userInput);
-            user.UserName = user.Phone;
-            user.PassWord = user.Phone;
             _unitOfWorkRepository.UserRepository.Insert(user);
+        }
+
+        public UserDto UpdateUser(UpdateUser userInput)
+        {
+            var user = _unitOfWorkRepository.UserRepository.GetById(userInput.Id);
+            if(user.MeasurementId!=userInput.MeasurementId)
+            {
+                _unitOfWorkRepository.MeasurementInformationRepository.GetById(userInput.MeasurementId);
+            }
+            Assign.Partial(userInput, user);
+            _unitOfWorkRepository.UserRepository.Update(user);
+            return _mapper.Map<UserDto>(user);
         }
     }
 }
