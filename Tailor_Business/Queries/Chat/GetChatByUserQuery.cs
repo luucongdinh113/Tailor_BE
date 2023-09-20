@@ -17,9 +17,9 @@ namespace Tailor_Business.Queries.Chat
         #endregion
         public class GetChatUserHandler : IRequestHandler<GetChatByUserQuery, IEnumerable<ChatDto>>
         {
-            private readonly IUnitOfWorkRepository _unitOfWork;
+            private readonly IUnitOfWork _unitOfWork;
             private readonly IMapper _mapper;
-            public GetChatUserHandler(IUnitOfWorkRepository unitOfWork,IMapper mapper)
+            public GetChatUserHandler(IUnitOfWork unitOfWork,IMapper mapper)
             {
                 _unitOfWork = unitOfWork;
                 _mapper = mapper;

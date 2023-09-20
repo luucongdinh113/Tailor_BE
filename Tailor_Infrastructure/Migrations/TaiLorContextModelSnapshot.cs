@@ -29,8 +29,9 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -54,8 +55,8 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
@@ -75,8 +76,9 @@ namespace Tailor_Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -105,8 +107,8 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
@@ -124,8 +126,9 @@ namespace Tailor_Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -140,8 +143,8 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
@@ -149,80 +152,6 @@ namespace Tailor_Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("InventoryCategories");
-                });
-
-            modelBuilder.Entity("Tailor_Domain.Entities.MeasurementInformation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<double>("BottomCircumference")
-                        .HasColumnType("double");
-
-                    b.Property<double>("CheckCircumference")
-                        .HasColumnType("double");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTimeOffset>("CreatedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<double>("CuffCircumference")
-                        .HasColumnType("double");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<double>("HipCircumference")
-                        .HasColumnType("double");
-
-                    b.Property<double>("InseamLength")
-                        .HasColumnType("double");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<double>("KneeHeight")
-                        .HasColumnType("double");
-
-                    b.Property<double>("NeckCircumference")
-                        .HasColumnType("double");
-
-                    b.Property<double>("PantLegWidth")
-                        .HasColumnType("double");
-
-                    b.Property<double>("PantLength")
-                        .HasColumnType("double");
-
-                    b.Property<double>("ShirtLength")
-                        .HasColumnType("double");
-
-                    b.Property<double>("ShoulderWidth")
-                        .HasColumnType("double");
-
-                    b.Property<double>("SleeveLength")
-                        .HasColumnType("double");
-
-                    b.Property<double>("ThighCircumference")
-                        .HasColumnType("double");
-
-                    b.Property<double>("UnderamCircumference")
-                        .HasColumnType("double");
-
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTimeOffset?>("UpdatedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<double>("WaistCircumference")
-                        .HasColumnType("double");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MeasurementInformation");
                 });
 
             modelBuilder.Entity("Tailor_Domain.Entities.Notify", b =>
@@ -235,8 +164,9 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -264,8 +194,8 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
@@ -288,8 +218,9 @@ namespace Tailor_Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -322,8 +253,8 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<int>("ProductCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
@@ -341,8 +272,9 @@ namespace Tailor_Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -357,8 +289,8 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
@@ -374,8 +306,9 @@ namespace Tailor_Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -405,8 +338,8 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<int>("ProductCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
@@ -428,8 +361,9 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -459,8 +393,8 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
@@ -489,11 +423,21 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<double>("BottomCircumference")
+                        .HasColumnType("double");
+
+                    b.Property<double>("CheckCircumference")
+                        .HasColumnType("double");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<double>("CuffCircumference")
+                        .HasColumnType("double");
 
                     b.Property<DateTime>("DateOfJoing")
                         .HasColumnType("datetime(6)");
@@ -505,9 +449,18 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("ExpiredOTP")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<double>("HipCircumference")
+                        .HasColumnType("double");
+
+                    b.Property<double>("InseamLength")
+                        .HasColumnType("double");
 
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("tinyint(1)");
@@ -515,12 +468,24 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<double>("KneeHeight")
+                        .HasColumnType("double");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("MeasurementId")
-                        .HasColumnType("int");
+                    b.Property<double>("NeckCircumference")
+                        .HasColumnType("double");
+
+                    b.Property<string>("OTP")
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("PantLegWidth")
+                        .HasColumnType("double");
+
+                    b.Property<double>("PantLength")
+                        .HasColumnType("double");
 
                     b.Property<string>("PassWord")
                         .IsRequired()
@@ -530,8 +495,23 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<double>("ShirtLength")
+                        .HasColumnType("double");
+
+                    b.Property<double>("ShoulderWidth")
+                        .HasColumnType("double");
+
+                    b.Property<double>("SleeveLength")
+                        .HasColumnType("double");
+
+                    b.Property<double>("ThighCircumference")
+                        .HasColumnType("double");
+
+                    b.Property<double>("UnderamCircumference")
+                        .HasColumnType("double");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
@@ -540,9 +520,10 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.HasKey("Id");
+                    b.Property<double>("WaistCircumference")
+                        .HasColumnType("double");
 
-                    b.HasIndex("MeasurementId");
+                    b.HasKey("Id");
 
                     b.HasIndex("PassWord")
                         .IsUnique();
@@ -559,8 +540,9 @@ namespace Tailor_Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -574,8 +556,8 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<int>("SampleId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
@@ -682,17 +664,6 @@ namespace Tailor_Infrastructure.Migrations
                     b.Navigation("Sample");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Tailor_Domain.Entities.User", b =>
-                {
-                    b.HasOne("Tailor_Domain.Entities.MeasurementInformation", "Measurement")
-                        .WithMany()
-                        .HasForeignKey("MeasurementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Measurement");
                 });
 
             modelBuilder.Entity("Tailor_Domain.Entities.UserSample", b =>

@@ -17,8 +17,21 @@ namespace Tailor_Infrastructure.Dto.User
         public string LastName { get; set; } = default!;
         public DateTime DateOfJoing { get; set; } = default!;
         public bool IsAdmin { get; set; }
-
-        public int MeasurementId { get; set; }
+        public double NeckCircumference { get; set; }
+        public double CheckCircumference { get; set; }
+        public double WaistCircumference { get; set; }
+        public double HipCircumference { get; set; }
+        public double ShoulderWidth { get; set; }
+        public double UnderamCircumference { get; set; }
+        public double SleeveLength { get; set; }
+        public double CuffCircumference { get; set; }
+        public double ShirtLength { get; set; }
+        public double ThighCircumference { get; set; }
+        public double BottomCircumference { get; set; }
+        public double InseamLength { get; set; }
+        public double PantLength { get; set; }
+        public double KneeHeight { get; set; }
+        public double PantLegWidth { get; set; }
         public string UserName { get; set; } = default!;
         public string PassWord { get; set; } = default!;
     }

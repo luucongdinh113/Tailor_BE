@@ -11,9 +11,9 @@ namespace Tailor_Infrastructure.Repositories
 {
     public class ChatRepository : GenericRepository<Chat, int>, IChatRepository
     {
-        private IUnitOfWorkRepository _unitOfWorkRepository;
+        private IUnitOfWork _unitOfWorkRepository;
         private readonly IMapper _mapper;
-        public ChatRepository(TaiLorContext context, IUnitOfWorkRepository unitOfWorkRepository, IMapper mapper) : base(context)
+        public ChatRepository(TaiLorContext context, IUnitOfWork unitOfWorkRepository, IMapper mapper) : base(context)
         {
             _unitOfWorkRepository = unitOfWorkRepository;
             _mapper = mapper;

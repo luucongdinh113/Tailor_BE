@@ -15,8 +15,8 @@ namespace Tailor_Business.Commands.User
         #endregion
         public class DeleteProductHandlerCommand : IRequestHandler<DeleteProductCommand, Unit>
         {
-            private readonly IUnitOfWorkRepository _unitOfWorkRepository;
-            public DeleteProductHandlerCommand(IUnitOfWorkRepository unitOfWorkRepository)
+            private readonly IUnitOfWork _unitOfWorkRepository;
+            public DeleteProductHandlerCommand(IUnitOfWork unitOfWorkRepository)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;
             }

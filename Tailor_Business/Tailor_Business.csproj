@@ -11,23 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Queries\InventoryCategory\" />
-    <Folder Include="Queries\Inventory\" />
-    <Folder Include="Queries\MeasurementInformation\" />
     <Folder Include="Queries\Notify\" />
-    <Folder Include="Queries\ProductCategory\" />
     <Folder Include="Queries\Product\" />
     <Folder Include="Queries\Sample\" />
     <Folder Include="Queries\Task\" />
-    <Folder Include="Queries\UserSample\" />
-    <Folder Include="Queries\User\" />
-    <Folder Include="Commands\InventoryCategory\" />
-    <Folder Include="Commands\MeasurementInformation\" />
-    <Folder Include="Commands\Notify\" />
-    <Folder Include="Commands\ProductCategory\" />
     <Folder Include="Commands\Sample\" />
-    <Folder Include="Commands\UserSample\" />
-    <Folder Include="Commands\Inventory\" />
     <Folder Include="Logs\" />
     <Folder Include="Services\IServices\" />
   </ItemGroup>

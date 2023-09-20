@@ -25,11 +25,11 @@ namespace Tailor_Business.Commands.User
         public string Note { get; set; } = default!;
 
         #endregion
-        public class UpdateTaskHandlerCommand : IRequestHandler<UpdateProductCommand, ProductDto>
+        public class UpdateProductHandlerCommand : IRequestHandler<UpdateProductCommand, ProductDto>
         {
-            private readonly IUnitOfWorkRepository _unitOfWorkRepository;
+            private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;
-            public UpdateTaskHandlerCommand(IUnitOfWorkRepository unitOfWorkRepository, IMapper mapper)
+            public UpdateProductHandlerCommand(IUnitOfWork unitOfWorkRepository, IMapper mapper)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;
                 _mapper = mapper;

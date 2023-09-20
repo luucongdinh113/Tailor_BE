@@ -10,12 +10,11 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Tailor_Infrastructure.Repositories.IRepositories
 {
-    public interface IUnitOfWorkRepository
+    public interface IUnitOfWork
     {
         IChatRepository ChatRepository { get; }
         IInventoryCategoryRepository InventoryCategoryRepository { get; }
         IInventoryRepository InventoryRepository { get; }
-        IMeasurement_InformationRepository MeasurementInformationRepository { get; }
         INotifyRepository NotifyRepository { get; }
         IProductCategoryRepository ProductCategoryRepository { get; }
         IProductRepository ProductRepository { get; }

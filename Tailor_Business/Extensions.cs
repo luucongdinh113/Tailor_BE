@@ -1,11 +1,8 @@
-﻿using FluentValidation;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel.Design;
 using System.Reflection;
 using Tailor_Infrastructure;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Tailor_Business
 {

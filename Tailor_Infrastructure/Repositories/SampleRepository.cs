@@ -11,9 +11,9 @@ namespace Tailor_Infrastructure.Repositories
 {
     public class SampleRepository : GenericRepository<Sample, int>, ISampleRepository
     {
-        private IUnitOfWorkRepository _unitOfWorkRepository;
+        private IUnitOfWork _unitOfWorkRepository;
         private readonly IMapper _mapper;
-        public SampleRepository(TaiLorContext context, IUnitOfWorkRepository unitOfWorkRepository, IMapper mapper) : base(context)
+        public SampleRepository(TaiLorContext context, IUnitOfWork unitOfWorkRepository, IMapper mapper) : base(context)
         {
             _unitOfWorkRepository = unitOfWorkRepository;
             _mapper = mapper;

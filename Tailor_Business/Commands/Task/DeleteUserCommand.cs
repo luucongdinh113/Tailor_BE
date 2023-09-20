@@ -15,8 +15,8 @@ namespace Tailor_Business.Commands.User
         #endregion
         public class DeleteTaskHandlerCommand : IRequestHandler<DeleteTaskCommand, Unit>
         {
-            private readonly IUnitOfWorkRepository _unitOfWorkRepository;
-            public DeleteTaskHandlerCommand(IUnitOfWorkRepository unitOfWorkRepository)
+            private readonly IUnitOfWork _unitOfWorkRepository;
+            public DeleteTaskHandlerCommand(IUnitOfWork unitOfWorkRepository)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;
             }

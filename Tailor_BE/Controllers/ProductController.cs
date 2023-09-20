@@ -1,9 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tailor_Business.Commands.User;
-using Tailor_Infrastructure.Services;
 using Tailor_Infrastructure.Services.IServices;
 
 namespace Tailor_BE.Controllers
@@ -23,7 +21,7 @@ namespace Tailor_BE.Controllers
 
         [AllowAnonymous]
         [HttpPost("CreateProduct")]
-        public async Task<IActionResult> CreateProduct(CreateProductCommand request,CancellationToken cancellation)
+        public async Task<IActionResult> CreateProduct(CreateProductCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }

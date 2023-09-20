@@ -1,16 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tailor_Infrastructure.Dto.Chat;
-using Tailor_Infrastructure.Dto.MeasurementInformation;
 using Tailor_Infrastructure.Dto.Product;
-using Tailor_Infrastructure.Dto.Task;
-using Tailor_Infrastructure.Dto.User;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
@@ -27,9 +17,9 @@ namespace Tailor_Business.Commands.User
         #endregion
         public class CreateProductHanlderCommand : IRequestHandler<CreateProductCommand, Unit>
         {
-            private readonly IUnitOfWorkRepository _unitOfWorkRepository;
+            private readonly IUnitOfWork _unitOfWorkRepository;
             private IMapper _mapper;
-            public CreateProductHanlderCommand(IUnitOfWorkRepository unitOfWorkRepository, IMapper mapper)
+            public CreateProductHanlderCommand(IUnitOfWork unitOfWorkRepository, IMapper mapper)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;
                 _mapper = mapper;

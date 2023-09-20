@@ -1,7 +1,5 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Tailor_Business.Dtos;
 using Tailor_Business.Queries.Chat;
 
 namespace Tailor_BE.Controllers
@@ -16,10 +14,10 @@ namespace Tailor_BE.Controllers
             _mediator = mediator;
         }
         [HttpGet()]
-        public async Task<IActionResult> GeTChatByUserId(Guid uerId,CancellationToken cancellationToken)
+        public async Task<IActionResult> GeTChatByUserId(Guid uerId, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new GetChatByUserQuery()
-            { UserId=uerId},cancellationToken));
+            { UserId = uerId }, cancellationToken));
         }
     }
 }

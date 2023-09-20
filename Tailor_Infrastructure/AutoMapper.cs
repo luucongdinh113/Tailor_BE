@@ -3,7 +3,6 @@ using Tailor_Domain.Entities;
 using Tailor_Infrastructure.Dto.Chat;
 using Tailor_Infrastructure.Dto.Inventory;
 using Tailor_Infrastructure.Dto.InventoryCategory;
-using Tailor_Infrastructure.Dto.MeasurementInformation;
 using Tailor_Infrastructure.Dto.Notify;
 using Tailor_Infrastructure.Dto.Product;
 using Tailor_Infrastructure.Dto.ProductCategory;
@@ -30,10 +29,6 @@ namespace Tailor_Infrastructure
             CreateMap<CreateInventoryCategory, InventoryCategory>();
             CreateMap<UpdateInventoryCategory, InventoryCategory>();
             CreateMap<InventoryCategory, InventoryCategoryDto>();
-
-            CreateMap<CreateMeasurementInformation, MeasurementInformation>();
-            CreateMap<UpdateMeasurementInformation, MeasurementInformation>();
-            CreateMap<MeasurementInformation, MeasurementInformationDto>();
 
             CreateMap<CreateNotify, Notify>();
             CreateMap<UpdateNotify, Notify>();

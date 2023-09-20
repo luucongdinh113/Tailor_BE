@@ -1,4 +1,3 @@
-using Cqrs.Hosts;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -6,7 +5,6 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
 using Tailor_Business;
-using Tailor_Infrastructure;
 
 namespace Tailor_BE
 {
@@ -86,7 +84,7 @@ namespace Tailor_BE
                     ValidIssuer = config["Jwt:Issuer"],
                     ValidAudience = config["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"])), //Configuration["JwtToken:SecretKey"],
-                    ClockSkew=TimeSpan.Zero
+                    ClockSkew = TimeSpan.Zero
                 };
             });
 

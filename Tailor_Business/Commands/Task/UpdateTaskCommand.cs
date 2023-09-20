@@ -31,9 +31,9 @@ namespace Tailor_Business.Commands.User
         #endregion
         public class UpdateTaskHandlerCommand : IRequestHandler<UpdateTaskCommand, TaskDto>
         {
-            private readonly IUnitOfWorkRepository _unitOfWorkRepository;
+            private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;
-            public UpdateTaskHandlerCommand(IUnitOfWorkRepository unitOfWorkRepository, IMapper mapper)
+            public UpdateTaskHandlerCommand(IUnitOfWork unitOfWorkRepository, IMapper mapper)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;
                 _mapper = mapper;

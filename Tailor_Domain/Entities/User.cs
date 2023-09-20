@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tailor_Domain.Entities
 {
-    public class User:BaseEnity<Guid>
+    public class User : BaseEnity<Guid>
     {
         [MinLength(8)]
         [Required]
@@ -20,16 +20,29 @@ namespace Tailor_Domain.Entities
         public string Email { get; set; } = default!;
 
         [Phone]
-        public string Phone { get; set; } =default!;
-        public string Address { get;set; } =default!;
+        public string Phone { get; set; } = default!;
+        public string Address { get; set; } = default!;
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;
         public DateTime DateOfJoing { get; set; } = default!;
         public bool IsAdmin { get; set; } = false;
-
-        [ForeignKey(nameof(MeasurementId))]
-        public int MeasurementId { get; set; }
-        public MeasurementInformation Measurement { get; set; }= default!;
+        public double NeckCircumference { get; set; }
+        public double CheckCircumference { get; set; }
+        public double WaistCircumference { get; set; }
+        public double HipCircumference { get; set; }
+        public double ShoulderWidth { get; set; }
+        public double UnderamCircumference { get; set; }
+        public double SleeveLength { get; set; }
+        public double CuffCircumference { get; set; }
+        public double ShirtLength { get; set; }
+        public double ThighCircumference { get; set; }
+        public double BottomCircumference { get; set; }
+        public double InseamLength { get; set; }
+        public double PantLength { get; set; }
+        public double KneeHeight { get; set; }
+        public double PantLegWidth { get; set; }
+        public string? OTP { get; set; } = default!;
+        public DateTime ExpiredOTP{ get;set;}
 
         public ICollection<Chat> ReceivedMessages { get; set; }=new Collection<Chat>();
         public ICollection<Chat> SentMessages { get; set; }=new Collection<Chat>();

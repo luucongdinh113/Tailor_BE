@@ -1,8 +1,7 @@
-﻿using Tailor_Infrastructure.Services.IServices;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Tailor_Domain.Entities;
+using Tailor_Infrastructure.Services.IServices;
 
 namespace Tailor_Infrastructure.Services
 {
@@ -16,19 +15,14 @@ namespace Tailor_Infrastructure.Services
                 ClaimsPrincipal user = _httpContextAccessor.HttpContext.User;
                 if (user != null)
                 {
-                    UserId = user.FindFirst(ClaimTypes.NameIdentifier) != null ? new Guid(user.FindFirst(ClaimTypes.NameIdentifier)!.Value) : new Guid();
-                    UserName = user.FindFirst(ClaimTypes.Name) != null ? user.FindFirst(ClaimTypes.Name)!.Value : "";
+                    UserName = user.FindFirst("UserName") != null ? user.FindFirst("UserName")!.Value : "";
                 }
             }
         }
-
-        public Guid UserId { get; }
-
         public string UserName { get; } = default!;
     }
     public class UserInfor
     {
-        public Guid UserId { get; set; }
         public string UserName { get; set; } = default!;
     }
 }

@@ -13,10 +13,12 @@ namespace Tailor_Infrastructure.Repositories
 {
     public class UserRepository : GenericRepository<User, Guid>, IUserRepository
     {
-        private IUnitOfWorkRepository _unitOfWorkRepository;
+        private IUnitOfWork _unitOfWorkRepository;
         private readonly IMapper _mapper;
-        public UserRepository(TaiLorContext context, IUnitOfWorkRepository unitOfWorkRepository, IMapper mapper) : base(context)
+        private readonly TaiLorContext _context;
+        public UserRepository(TaiLorContext context, IUnitOfWork unitOfWorkRepository, IMapper mapper) : base(context)
         {
+            _context = context;
             _unitOfWorkRepository = unitOfWorkRepository;
             _mapper = mapper;
         }
@@ -26,16 +28,26 @@ namespace Tailor_Infrastructure.Repositories
             _unitOfWorkRepository.UserRepository.Insert(user);
         }
 
+        public bool CheckUserExist(string phoneNumber)
+        {
+            return _context.Users.Any(c => c.Phone == phoneNumber);
+        }
         public UserDto UpdateUser(UpdateUser userInput)
         {
             var user = _unitOfWorkRepository.UserRepository.GetById(userInput.Id);
-            if(user.MeasurementId!=userInput.MeasurementId)
-            {
-                _unitOfWorkRepository.MeasurementInformationRepository.GetById(userInput.MeasurementId);
-            }
             Assign.Partial(userInput, user);
             _unitOfWorkRepository.UserRepository.Update(user);
             return _mapper.Map<UserDto>(user);
+        }
+        public IEnumerable<UserDto> GetAll()
+        {
+            var users = _unitOfWorkRepository.UserRepository.Get();
+            var result = new List<UserDto>();
+            foreach (var item in users)
+            {
+                result.Add(_mapper.Map<UserDto>(item));
+            }
+            return result;
         }
     }
 }

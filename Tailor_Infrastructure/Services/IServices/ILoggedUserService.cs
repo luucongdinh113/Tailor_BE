@@ -8,7 +8,6 @@ namespace Tailor_Infrastructure.Services.IServices
 {
     public interface ILoggedUserService
     {
-        Guid UserId { get; }
         string UserName { get; }
     }
 }

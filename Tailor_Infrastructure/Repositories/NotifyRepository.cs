@@ -11,9 +11,9 @@ namespace Tailor_Infrastructure.Repositories
 {
     public class NotifyRepository : GenericRepository<Notify, int>, INotifyRepository
     {
-        private IUnitOfWorkRepository _unitOfWorkRepository;
+        private IUnitOfWork _unitOfWorkRepository;
         private readonly IMapper _mapper;
-        public NotifyRepository(TaiLorContext context, IUnitOfWorkRepository unitOfWorkRepository, IMapper mapper) : base(context)
+        public NotifyRepository(TaiLorContext context, IUnitOfWork unitOfWorkRepository, IMapper mapper) : base(context)
         {
             _unitOfWorkRepository = unitOfWorkRepository;
             _mapper = mapper;
