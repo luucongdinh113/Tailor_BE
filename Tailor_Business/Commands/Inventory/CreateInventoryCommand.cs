@@ -28,7 +28,7 @@ namespace Tailor_Business.Commands.User
             {
                 var createInventory = _mapper.Map<CreateInventory>(request);
                 _unitOfWorkRepository.InventoryRepository.CreateInventory(createInventory);
-                return System.Threading.Tasks.Task.FromResult(Unit.Value);
+                return Task.FromResult(Unit.Value);
             }
         }
     }

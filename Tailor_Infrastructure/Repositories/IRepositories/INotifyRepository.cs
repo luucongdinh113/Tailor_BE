@@ -6,7 +6,6 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
 {
     public interface INotifyRepository: IGenericRepository<Notify, int>
     {
-        Task CreateSample(CreateSample createSample);
-        Task<SampleDto> UpdateSample(UpdateSample updateSample);
+        
     }
 }

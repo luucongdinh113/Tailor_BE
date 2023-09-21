@@ -24,7 +24,7 @@ namespace Tailor_Business.Commands.User
 
             public async Task<Unit> Handle(DeleteUserSampleCommand request, CancellationToken cancellationToken)
             {
-                _unitOfWorkRepository.UserSampleRepository.Delete(request.Id);
+                await _unitOfWorkRepository.UserSampleRepository.DeleteAsync(request.Id);
                 return Unit.Value;
             }
         }

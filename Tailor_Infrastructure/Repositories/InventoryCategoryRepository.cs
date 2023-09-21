@@ -29,7 +29,7 @@ namespace Tailor_Infrastructure.Repositories
         public async Task<InventoryCategoryDto> UpdateInventoryCategoryAsync(UpdateInventoryCategory updateInventoryCategory)
         {
             var inventoryCategory = await _unitOfWorkRepository.InventoryCategoryRepository.GetByIdAsync(updateInventoryCategory.Id);
-            Assign.Omit(updateInventoryCategory, inventoryCategory);
+            Assign.Partial(updateInventoryCategory, inventoryCategory);
             await _unitOfWorkRepository.InventoryCategoryRepository.UpdateAsync(inventoryCategory);
             return _mapper.Map<InventoryCategoryDto>(inventoryCategory);
         }

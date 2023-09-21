@@ -11,11 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Commands\Chat\" />
     <Folder Include="Queries\Notify\" />
     <Folder Include="Queries\Product\" />
     <Folder Include="Queries\Sample\" />
     <Folder Include="Queries\Task\" />
-    <Folder Include="Commands\Sample\" />
     <Folder Include="Logs\" />
     <Folder Include="Services\IServices\" />
   </ItemGroup>

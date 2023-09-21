@@ -21,18 +21,6 @@ namespace Tailor_Infrastructure.Repositories
             _unitOfWorkRepository = unitOfWorkRepository;
             _mapper = mapper;
         }
-        public async Task CreateSample(CreateSample createSample)
-        {
-            var sample=_mapper.Map<Sample>(createSample);
-            await _unitOfWorkRepository.SampleRepository.InsertAsync(sample);
-        }
-
-        public async Task<SampleDto> UpdateSample(UpdateSample updateSample)
-        {
-            var sample = await _unitOfWorkRepository.SampleRepository.GetByIdAsync(updateSample.Id);
-            Assign.Partial(updateSample, sample);
-            await _unitOfWorkRepository.SampleRepository.UpdateAsync(sample);
-            return _mapper.Map<SampleDto>(sample);
-        }
+        
     }
 }
