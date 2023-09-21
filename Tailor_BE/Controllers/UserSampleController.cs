@@ -11,12 +11,10 @@ namespace Tailor_BE.Controllers
     [ApiController]
     public class UserSampleController : ControllerBase
     {
-        private readonly IJWTService _jWTService;
         private readonly IMediator _mediator;
 
-        public UserSampleController(IJWTService jWTService, IMediator mediator)
+        public UserSampleController(IMediator mediator)
         {
-            _jWTService = jWTService;
             _mediator = mediator;
         }
 

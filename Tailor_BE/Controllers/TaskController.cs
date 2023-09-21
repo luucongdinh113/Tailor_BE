@@ -10,12 +10,10 @@ namespace Tailor_BE.Controllers
     [ApiController]
     public class TaskController : ControllerBase
     {
-        private readonly IJWTService _jWTService;
         private readonly IMediator _mediator;
 
-        public TaskController(IJWTService jWTService, IMediator mediator)
+        public TaskController(IMediator mediator)
         {
-            _jWTService = jWTService;
             _mediator = mediator;
         }
 

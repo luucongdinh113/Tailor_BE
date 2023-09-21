@@ -39,10 +39,10 @@ namespace Tailor_Business.Commands.User
                 _mapper = mapper;
             }
 
-            public async Task<TaskDto> Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
+            public Task<TaskDto> Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
             {
                 var updateTask = _mapper.Map<UpdateTask>(request);
-                return _unitOfWorkRepository.TaskRepository.UpdateTask(updateTask);
+                return Task.FromResult(_unitOfWorkRepository.TaskRepository.UpdateTask(updateTask));
             }
         }
     }

@@ -12,7 +12,7 @@ namespace Tailor_Infrastructure.Repositories
 {
     public class UserSampleRepository : GenericRepository<UserSample, int>, IUserSampleRepository
     {
-        private IUnitOfWork _unitOfWorkRepository;
+        private readonly IUnitOfWork _unitOfWorkRepository;
         private readonly IMapper _mapper;
         public UserSampleRepository(TaiLorContext context, IUnitOfWork unitOfWorkRepository, IMapper mapper) : base(context)
         {

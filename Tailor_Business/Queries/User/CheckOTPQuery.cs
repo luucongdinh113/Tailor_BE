@@ -23,7 +23,7 @@ namespace Tailor_Business.Queries.User
             public async Task<bool> Handle(CheckOTPQuery request, CancellationToken cancellationToken)
             {
                 var dateTimeNow = DateTime.UtcNow;
-                var user = _unitOfWorkRepository.UserRepository.Get(c => c.UserName == request.UserName).FirstOrDefault();
+                var user = (await _unitOfWorkRepository.UserRepository.GetAsync(c => c.UserName == request.UserName)).FirstOrDefault();
                 if (user == null) return false;
                 if(user.OTP==request.OTP && DateTime.Compare(dateTimeNow,user.ExpiredOTP)<1)
                 {

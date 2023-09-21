@@ -29,7 +29,7 @@ namespace Tailor_Business.Commands.User
             public async Task<InventoryDto> Handle(UpdateInventoryCommand request, CancellationToken cancellationToken)
             {
                 var updateInventory = _mapper.Map<UpdateInventory>(request);
-                return _unitOfWorkRepository.InventoryRepository.UpdateInventory(updateInventory);
+                return await _unitOfWorkRepository.InventoryRepository.UpdateInventoryAsync(updateInventory);
             }
         }
     }

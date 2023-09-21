@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using Tailor_Domain.Entities;
+using Task = System.Threading.Tasks.Task;
 
 namespace Tailor_Infrastructure.Repositories.IRepositories
 {
@@ -16,5 +12,12 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
         void Delete(Tkey id);
         void Delete(TEntity entity);
         void Update(TEntity entity);
+
+        Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? fillter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, string includeProperties = "");
+        Task<TEntity> GetByIdAsync(Tkey id);
+        Task InsertAsync(TEntity entity);
+        Task DeleteAsync(Tkey id);
+        Task DeleteAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
     }
 }

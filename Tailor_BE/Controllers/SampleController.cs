@@ -7,29 +7,29 @@ namespace Tailor_BE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NotifyController : ControllerBase
+    public class SampleController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public NotifyController(IMediator mediator)
+        public SampleController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost("CreateNotify")]
-        public async Task<IActionResult> CreateNotify(CreateNotifyCommand request, CancellationToken cancellation)
+        [HttpPost("CreateSample")]
+        public async Task<IActionResult> CreateSample(CreateSampleCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
 
-        [HttpDelete("DeleteNotify")]
-        public async Task<IActionResult> DeleteNotify(DeleteNotifyCommand request, CancellationToken cancellation)
+        [HttpDelete("DeleteSample")]
+        public async Task<IActionResult> DeleteSample(DeleteSampleCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
 
-        [HttpPut("UpdateNotify")]
-        public async Task<IActionResult> UpdateNotify(UpdateNotifyCommand request, CancellationToken cancellation)
+        [HttpPut("UpdateSample")]
+        public async Task<IActionResult> UpdateSample(UpdateSampleCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }

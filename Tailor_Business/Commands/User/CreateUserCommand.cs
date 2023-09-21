@@ -39,7 +39,7 @@ namespace Tailor_Business.Commands.User
         public class CreateUserHanlderCommand : IRequestHandler<CreateUserCommand,Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
-            private IMapper _mapper;
+            private readonly  IMapper _mapper;
             public CreateUserHanlderCommand(IUnitOfWork unitOfWorkRepository, IMapper mapper)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;
@@ -47,26 +47,24 @@ namespace Tailor_Business.Commands.User
             }
             async Task<Unit> IRequestHandler<CreateUserCommand, Unit>.Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
-                using (var tr = await _unitOfWorkRepository.BeginTransactionAsync())
+                using var tr = await _unitOfWorkRepository.BeginTransactionAsync(cancellationToken);
+                try
                 {
-                    try
-                    {
-                        if (_unitOfWorkRepository.UserRepository.CheckUserExist(request.Phone))
-                            throw new Exception($"User has phone {request.Phone} in DB");
-                        request.PassWord = PasswordHasher.HashPassword
-                      (request.PassWord);
-                        var createUser = _mapper.Map<CreateUser>(request);
-                        _unitOfWorkRepository.UserRepository.CreateUser(createUser);
-                        await _unitOfWorkRepository.CommitTransactionAsync();
-                        return Unit.Value;
-                    }
-                    catch
-                    {
-                        _unitOfWorkRepository.RollBack();
-                        return Unit.Value;
-                    }
+                    if (_unitOfWorkRepository.UserRepository.CheckUserExist(request.Phone))
+                        throw new Exception($"User has phone {request.Phone} in DB");
+                    request.PassWord = PasswordHasher.HashPassword
+                  (request.PassWord);
+                    var createUser = _mapper.Map<CreateUser>(request);
+                    _unitOfWorkRepository.UserRepository.CreateUser(createUser);
+                    await _unitOfWorkRepository.CommitTransactionAsync(cancellationToken);
+                    return Unit.Value;
                 }
-        }
+                catch
+                {
+                    _unitOfWorkRepository.RollBack(cancellationToken);
+                    return Unit.Value;
+                }
+            }
         }
     }
 }

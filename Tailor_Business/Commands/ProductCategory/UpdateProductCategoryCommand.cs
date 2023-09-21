@@ -31,10 +31,10 @@ namespace Tailor_Business.Commands.User
                 _mapper = mapper;
             }
 
-            public async Task<ProductCategoryDto> Handle(UpdateProductCategoryCommand request, CancellationToken cancellationToken)
+            public Task<ProductCategoryDto> Handle(UpdateProductCategoryCommand request, CancellationToken cancellationToken)
             {
                 var updateProductCategory = _mapper.Map<UpdateProductCategory>(request);
-                return _unitOfWorkRepository.ProductCategoryRepository.UpdateProductCategory(updateProductCategory);
+                return Task.FromResult(_unitOfWorkRepository.ProductCategoryRepository.UpdateProductCategory(updateProductCategory));
             }
         }
     }

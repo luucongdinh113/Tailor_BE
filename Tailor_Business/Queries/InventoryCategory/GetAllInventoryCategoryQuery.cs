@@ -24,7 +24,7 @@ namespace Tailor_Business.Queries.ProductCategory
             }
             public async Task<IEnumerable<InventoryCategoryDto>> Handle(GetAllInventoryCategoryQuery request, CancellationToken cancellationToken)
             {
-                var inventoryCategorys = _unitOfWorkRepository.InventoryCategoryRepository.Get();
+                var inventoryCategorys = await _unitOfWorkRepository.InventoryCategoryRepository.GetAsync();
                 return inventoryCategorys.Select(c=>_mapper.Map<InventoryCategoryDto>(c)).ToList();
             }
         }

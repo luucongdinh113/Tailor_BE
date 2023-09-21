@@ -10,12 +10,10 @@ namespace Tailor_BE.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IJWTService _jWTService;
         private readonly IMediator _mediator;
 
-        public ProductController(IJWTService jWTService, IMediator mediator)
+        public ProductController(IMediator mediator)
         {
-            _jWTService = jWTService;
             _mediator = mediator;
         }
 

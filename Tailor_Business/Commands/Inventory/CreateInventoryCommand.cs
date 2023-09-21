@@ -17,7 +17,7 @@ namespace Tailor_Business.Commands.User
         public class CreateInventoryCommandHanlderCommand : IRequestHandler<CreateInventoryCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
-            private IMapper _mapper;
+            private readonly  IMapper _mapper;
             public CreateInventoryCommandHanlderCommand(IUnitOfWork unitOfWorkRepository, IMapper mapper)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;

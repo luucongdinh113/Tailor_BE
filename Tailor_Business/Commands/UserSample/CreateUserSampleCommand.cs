@@ -15,7 +15,7 @@ namespace Tailor_Business.Commands.User
         public class CreateUserSampleHanlderCommand : IRequestHandler<CreateUserSampleCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
-            private IMapper _mapper;
+            private readonly  IMapper _mapper;
             public CreateUserSampleHanlderCommand(IUnitOfWork unitOfWorkRepository, IMapper mapper)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;

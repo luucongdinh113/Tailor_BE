@@ -23,7 +23,7 @@ namespace Tailor_Business.Commands.User
 
             public async Task<Unit> Handle(DeleteProductCategoryCommand request, CancellationToken cancellationToken)
             {
-                _unitOfWorkRepository.ProductCategoryRepository.Delete(request.Id);
+                await _unitOfWorkRepository.ProductCategoryRepository.DeleteAsync(request.Id);
                 return Unit.Value;
             }
         }

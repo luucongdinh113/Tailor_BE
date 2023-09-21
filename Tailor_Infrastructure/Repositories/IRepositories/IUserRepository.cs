@@ -13,7 +13,7 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
     {
         void CreateUser(CreateUser userInput);
         UserDto UpdateUser(UpdateUser userInput);
-        IEnumerable<UserDto> GetAll();
+        Task<IEnumerable<UserDto>> GetAllAsync();
         bool CheckUserExist(string phoneNumber);
     }
 }

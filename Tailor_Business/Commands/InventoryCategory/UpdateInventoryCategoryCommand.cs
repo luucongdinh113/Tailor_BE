@@ -35,7 +35,7 @@ namespace Tailor_Business.Commands.User
             public async Task<InventoryCategoryDto> Handle(UpdateInventoryCategoryCommand request, CancellationToken cancellationToken)
             {
                 var updateInventoryCategory = _mapper.Map<UpdateInventoryCategory>(request);
-                return _unitOfWorkRepository.InventoryCategoryRepository.UpdateInventoryCategory(updateInventoryCategory);
+                return await _unitOfWorkRepository.InventoryCategoryRepository.UpdateInventoryCategoryAsync(updateInventoryCategory);
             }
         }
     }

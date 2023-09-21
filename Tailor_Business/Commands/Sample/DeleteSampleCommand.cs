@@ -8,22 +8,22 @@ using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class DeleteUserCommand:IRequest<Unit>
+    public class DeleteSampleCommand : IRequest<Unit>
     {
         #region parameter
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         #endregion
-        public class DeleteUserHandlerCommand : IRequestHandler<DeleteUserCommand, Unit>
+        public class DeleteSampleHandlerCommand : IRequestHandler<DeleteSampleCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
-            public DeleteUserHandlerCommand(IUnitOfWork unitOfWorkRepository)
+            public DeleteSampleHandlerCommand(IUnitOfWork unitOfWorkRepository)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;
             }
 
-            public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(DeleteSampleCommand request, CancellationToken cancellationToken)
             {
-                await _unitOfWorkRepository.UserRepository.DeleteAsync(request.Id);
+                await _unitOfWorkRepository.SampleRepository.DeleteAsync(request.Id);
                 return Unit.Value;
             }
         }

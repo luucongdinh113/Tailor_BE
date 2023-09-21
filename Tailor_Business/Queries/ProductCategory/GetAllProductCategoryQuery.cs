@@ -23,7 +23,7 @@ namespace Tailor_Business.Queries.ProductCategory
             }
             public async Task<IEnumerable<ProductCategoryDto>> Handle(GetAllProductCategoryQuery request, CancellationToken cancellationToken)
             {
-                var productCategorys = _unitOfWorkRepository.ProductCategoryRepository.Get();
+                var productCategorys = await _unitOfWorkRepository.ProductCategoryRepository.GetAsync();
                 return productCategorys.Select(c=>_mapper.Map<ProductCategoryDto>(c)).ToList();
             }
         }

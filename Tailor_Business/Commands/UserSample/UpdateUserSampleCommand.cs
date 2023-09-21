@@ -32,10 +32,10 @@ namespace Tailor_Business.Commands.User
                 _mapper = mapper;
             }
 
-            public async Task<UserSampleDto> Handle(UpdateUserSampleCommand request, CancellationToken cancellationToken)
+            public Task<UserSampleDto> Handle(UpdateUserSampleCommand request, CancellationToken cancellationToken)
             {
                 var updateUserSample = _mapper.Map<UpdateUserSample>(request);
-                return _unitOfWorkRepository.UserSampleRepository.UpdateProduct(updateUserSample);
+                return Task.FromResult(_unitOfWorkRepository.UserSampleRepository.UpdateProduct(updateUserSample));
             }
         }
     }

@@ -24,7 +24,7 @@ namespace Tailor_Business.Queries.User
 
             public async Task<IEnumerable<UserDto>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
             {
-                return _unitOfWork.UserRepository.GetAll();
+                return await _unitOfWork.UserRepository.GetAllAsync();
             }
         }
     }

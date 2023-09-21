@@ -11,6 +11,6 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
     public interface IInventoryCategoryRepository: IGenericRepository<InventoryCategory, int>
     {
         void CreateInventoryCategory(CreateInventoryCategory createInventoryCategory);
-        InventoryCategoryDto UpdateInventoryCategory(UpdateInventoryCategory updateInventoryCategory);
+        Task<InventoryCategoryDto> UpdateInventoryCategoryAsync(UpdateInventoryCategory updateInventoryCategory);
     }
 }

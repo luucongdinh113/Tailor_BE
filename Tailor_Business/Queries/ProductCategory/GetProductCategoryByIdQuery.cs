@@ -26,7 +26,7 @@ namespace Tailor_Business.Queries.ProductCategory
             }
             public async Task<ProductCategoryDto> Handle(GetProductCategoryByIdQuery request, CancellationToken cancellationToken)
             {
-                var productCategory = _unitOfWorkRepository.ProductCategoryRepository.GetById(request.Id);
+                var productCategory = await _unitOfWorkRepository.ProductCategoryRepository.GetByIdAsync(request.Id);
                 return _mapper.Map<ProductCategoryDto>(productCategory);
             }
         }

@@ -1,12 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Tailor_Domain.Entities;
 using Tailor_Infrastructure.Repositories.IRepositories;
+using Task = System.Threading.Tasks.Task;
 
 namespace Tailor_Infrastructure.Repositories
 {
@@ -28,6 +24,14 @@ namespace Tailor_Infrastructure.Repositories
             _context.SaveChanges();
         }
 
+        public virtual async Task DeleteAsync(TKey id)
+        {
+            TEntity entity = await _dbSet.FindAsync(id) ?? throw new Exception($"Has not found {nameof(entity)} has id ({id})");
+
+            Delete(entity);
+            _context.SaveChanges();
+        }
+
         public virtual void Delete(TEntity entity)
         {
             if(_context.Entry(entity).State==EntityState.Detached)
@@ -36,6 +40,16 @@ namespace Tailor_Infrastructure.Repositories
             }
             _dbSet.Remove(entity);
             _context.SaveChanges();
+        }
+
+        public virtual async Task DeleteAsync(TEntity entity)
+        {
+            if (_context.Entry(entity).State == EntityState.Detached)
+            {
+                _dbSet.Attach(entity);
+            }
+            _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, string includeProperties = "")
@@ -62,9 +76,38 @@ namespace Tailor_Infrastructure.Repositories
             }
         }
 
+        public virtual async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, string includeProperties = "")
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return await orderBy(query).ToListAsync();
+            }
+            else
+            {
+                return await query.ToListAsync();
+            }
+        }
+
         public virtual TEntity GetById(TKey id)
         {
             return _dbSet.Find(id)??throw new Exception($"Has not found {nameof(TEntity)} has id ({id})");
+        }
+
+        public virtual async Task<TEntity> GetByIdAsync(TKey id)
+        {
+            return await _dbSet.FindAsync(id) ?? throw new Exception($"Has not found {nameof(TEntity)} has id ({id})");
         }
 
         public virtual void Insert(TEntity entity)
@@ -73,10 +116,22 @@ namespace Tailor_Infrastructure.Repositories
             _context.SaveChanges();
         }
 
+        public virtual async Task InsertAsync(TEntity entity)
+        {
+            await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
+        }
+
         public virtual void Update(TEntity entity)
         {
             _dbSet.Update(entity);
             _context.SaveChanges();
+        }
+
+        public virtual async Task UpdateAsync(TEntity entity)
+        {
+            _dbSet.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }

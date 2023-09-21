@@ -13,7 +13,7 @@ namespace Tailor_Infrastructure.Repositories
 {
     public class UserRepository : GenericRepository<User, Guid>, IUserRepository
     {
-        private IUnitOfWork _unitOfWorkRepository;
+        private readonly IUnitOfWork _unitOfWorkRepository;
         private readonly IMapper _mapper;
         private readonly TaiLorContext _context;
         public UserRepository(TaiLorContext context, IUnitOfWork unitOfWorkRepository, IMapper mapper) : base(context)
@@ -39,9 +39,9 @@ namespace Tailor_Infrastructure.Repositories
             _unitOfWorkRepository.UserRepository.Update(user);
             return _mapper.Map<UserDto>(user);
         }
-        public IEnumerable<UserDto> GetAll()
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
-            var users = _unitOfWorkRepository.UserRepository.Get();
+            var users = await _unitOfWorkRepository.UserRepository.GetAsync();
             var result = new List<UserDto>();
             foreach (var item in users)
             {

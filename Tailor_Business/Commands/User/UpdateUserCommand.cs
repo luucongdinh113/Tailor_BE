@@ -53,11 +53,11 @@ namespace Tailor_Business.Commands.User
                 _mapper = mapper;
             }
 
-            public async Task<UserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+            public Task<UserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
                 request.PassWord = PasswordHasher.HashPassword(request.PassWord);
                 var updateUser = _mapper.Map<UpdateUser>(request);
-                return _unitOfWorkRepository.UserRepository.UpdateUser(updateUser); 
+                return Task.FromResult(_unitOfWorkRepository.UserRepository.UpdateUser(updateUser)); 
             }
         }
     }

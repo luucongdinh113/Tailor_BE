@@ -12,7 +12,7 @@ namespace Tailor_Infrastructure.Repositories
 {
     public class InventoryRepository : GenericRepository<Inventory, int>, IInventoryRepository
     {
-        private IUnitOfWork _unitOfWorkRepository;
+        private readonly IUnitOfWork _unitOfWorkRepository;
         private readonly IMapper _mapper;
         public InventoryRepository(TaiLorContext context, IUnitOfWork unitOfWorkRepository, IMapper mapper) : base(context)
         {
@@ -24,11 +24,12 @@ namespace Tailor_Infrastructure.Repositories
             var inventory = _mapper.Map<Inventory>(createInventory);
             _unitOfWorkRepository.InventoryRepository.Insert(inventory);
         }
-        public InventoryDto UpdateInventory(UpdateInventory updateInventory)
+        public async Task<InventoryDto> UpdateInventoryAsync(UpdateInventory updateInventory)
         {
-            var inventory = _unitOfWorkRepository.InventoryRepository.GetById(updateInventory.Id);
+            var inventory = await _unitOfWorkRepository.InventoryRepository.GetByIdAsync(updateInventory.Id);
             _unitOfWorkRepository.InventoryCategoryRepository.GetById(updateInventory.InventoryCategoryId);
             Common.Assign.Partial(updateInventory, inventory);
+            await _unitOfWorkRepository.InventoryRepository.UpdateAsync(inventory);
             return _mapper.Map<InventoryDto>(inventory);
         }
     }

@@ -14,7 +14,7 @@ namespace Tailor_Infrastructure.Repositories
 {
     public class ProductCategoryRepository : GenericRepository<ProductCategory, int>, IProductCategoryRepository
     {
-        private IUnitOfWork _unitOfWorkRepository;
+        private readonly IUnitOfWork _unitOfWorkRepository;
         private readonly IMapper _mapper;
         public ProductCategoryRepository(TaiLorContext context, IUnitOfWork unitOfWorkRepository, IMapper mapper) : base(context)
         {

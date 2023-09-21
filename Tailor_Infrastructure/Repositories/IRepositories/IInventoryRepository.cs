@@ -11,6 +11,6 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
     public interface IInventoryRepository: IGenericRepository<Inventory, int>
     {
         void CreateInventory(CreateInventory createInventory);
-        InventoryDto UpdateInventory(UpdateInventory updateInventory);
+        Task<InventoryDto> UpdateInventoryAsync(UpdateInventory updateInventory);
     }
 }

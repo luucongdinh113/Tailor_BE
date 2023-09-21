@@ -7,7 +7,7 @@ namespace Tailor_Infrastructure.Services
 {
     public class LoggedUserService : ILoggedUserService
     {
-        private IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         public LoggedUserService(IHttpContextAccessor httpContextAccessor) {
             _httpContextAccessor = httpContextAccessor;
             if (_httpContextAccessor.HttpContext != null)

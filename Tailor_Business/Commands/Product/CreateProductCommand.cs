@@ -18,7 +18,7 @@ namespace Tailor_Business.Commands.User
         public class CreateProductHanlderCommand : IRequestHandler<CreateProductCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
-            private IMapper _mapper;
+            private readonly  IMapper _mapper;
             public CreateProductHanlderCommand(IUnitOfWork unitOfWorkRepository, IMapper mapper)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;

@@ -24,7 +24,7 @@ namespace Tailor_Business.Queries.ProductCategory
             }
             public async Task<IEnumerable<UserSampleDto>> Handle(GetAllUserSampleQuery request, CancellationToken cancellationToken)
             {
-                var userSamples = _unitOfWorkRepository.UserSampleRepository.Get();
+                var userSamples = await _unitOfWorkRepository.UserSampleRepository.GetAsync();
                 return userSamples.Select(c=>_mapper.Map<UserSampleDto>(c)).ToList();
             }
         }

@@ -16,7 +16,7 @@ namespace Tailor_Infrastructure.Repositories
 {
     public class TaskRepository : GenericRepository<Task, int>, ITaskRepository
     {
-        private IUnitOfWork _unitOfWorkRepository;
+        private readonly IUnitOfWork _unitOfWorkRepository;
         private readonly IMapper _mapper;
         public TaskRepository(TaiLorContext context, IUnitOfWork unitOfWorkRepository, IMapper mapper) : base(context)
         {

@@ -12,11 +12,11 @@ namespace Tailor_Business.Commands.User
         #region param
         public string Name { get; set; } = default!;
         #endregion
-        public class CreateInventoryCategoryCommandHanlderCommand : IRequestHandler<CreateInventoryCategoryCommand, Unit>
+        public class CreateInventoryCategoryHanlderCommand : IRequestHandler<CreateInventoryCategoryCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
-            private IMapper _mapper;
-            public CreateInventoryCategoryCommandHanlderCommand(IUnitOfWork unitOfWorkRepository, IMapper mapper)
+            private readonly  IMapper _mapper;
+            public CreateInventoryCategoryHanlderCommand(IUnitOfWork unitOfWorkRepository, IMapper mapper)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;
                 _mapper = mapper;

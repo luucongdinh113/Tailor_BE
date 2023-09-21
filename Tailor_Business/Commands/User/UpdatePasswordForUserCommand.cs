@@ -29,7 +29,7 @@ namespace Tailor_Business.Commands.User
             {
                 if (request.NewPassword != request.ConfirmPassword) throw new Exception("NewPass not equal ConfirmPass");
                 var userName = _loggedUserService.UserName;
-                var user = _unitOfWork.UserRepository.Get(c => c.UserName == userName).FirstOrDefault()
+                var user = (await _unitOfWork.UserRepository.GetAsync(c => c.UserName == userName)).FirstOrDefault()
                     ?? throw new Exception("Token invalid");
                 if (!PasswordHasher.VerifyPassword(user.PassWord, request.OldPassword))
                     throw new Exception("OldPass InValid");

@@ -14,7 +14,7 @@ namespace Tailor_Infrastructure.Repositories
 {
     public class InventoryCategoryRepository : GenericRepository<InventoryCategory, int>, IInventoryCategoryRepository
     {
-        private IUnitOfWork _unitOfWorkRepository;
+        private readonly IUnitOfWork _unitOfWorkRepository;
         private readonly IMapper _mapper;
         public InventoryCategoryRepository(TaiLorContext context, IUnitOfWork unitOfWorkRepository, IMapper mapper) : base(context)
         {
@@ -26,11 +26,11 @@ namespace Tailor_Infrastructure.Repositories
             var inventoryCategory = _mapper.Map<InventoryCategory>(createInventoryCategory);
             _unitOfWorkRepository.InventoryCategoryRepository.Insert(inventoryCategory);
         }
-        public InventoryCategoryDto UpdateInventoryCategory(UpdateInventoryCategory updateInventoryCategory)
+        public async Task<InventoryCategoryDto> UpdateInventoryCategoryAsync(UpdateInventoryCategory updateInventoryCategory)
         {
-            var inventoryCategory = _unitOfWorkRepository.InventoryCategoryRepository.GetById(updateInventoryCategory.Id);
-            Assign.Partial(updateInventoryCategory, inventoryCategory);
-            _unitOfWorkRepository.InventoryCategoryRepository.Update(inventoryCategory);
+            var inventoryCategory = await _unitOfWorkRepository.InventoryCategoryRepository.GetByIdAsync(updateInventoryCategory.Id);
+            Assign.Omit(updateInventoryCategory, inventoryCategory);
+            await _unitOfWorkRepository.InventoryCategoryRepository.UpdateAsync(inventoryCategory);
             return _mapper.Map<InventoryCategoryDto>(inventoryCategory);
         }
     }
