@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Tailor_Business.Commons;
 using Tailor_Infrastructure.Common;
@@ -7,7 +8,7 @@ using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class CreateUserCommand:IRequest<Unit>
+    public class CreateUserCommand: ICommand<Unit>
     {
         #region param
         public string Email { get; set; } = default!;
@@ -36,7 +37,7 @@ namespace Tailor_Business.Commands.User
 
         public string PassWord { get; set; } = default!;
         #endregion
-        public class CreateUserHanlderCommand : IRequestHandler<CreateUserCommand,Unit>
+        public class CreateUserHanlderCommand : ICommandHandler<CreateUserCommand,Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly  IMapper _mapper;
@@ -65,6 +66,14 @@ namespace Tailor_Business.Commands.User
                     return Unit.Value;
                 }
             }
+        }
+    }
+    public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+    {
+        public CreateUserCommandValidator()
+        {
+            RuleFor(x => x.UserName).NotEmpty();
+            RuleFor(x => x.PassWord).NotEmpty().MinimumLength(8);
         }
     }
 }

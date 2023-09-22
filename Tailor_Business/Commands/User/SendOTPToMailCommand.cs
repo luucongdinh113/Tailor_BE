@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure;
 using Tailor_Infrastructure.Dto.Mail;
 using Tailor_Infrastructure.Repositories.IRepositories;
@@ -11,10 +13,10 @@ using Tailor_Infrastructure.Services.IServices;
 
 namespace Tailor_Business.Commands.User
 {
-    public class SendOTPToMailCommand:IRequest<bool>
+    public class SendOTPToMailCommand: ICommand<bool>
     {
         public string UserName { get; set; } = default!;
-        public class SendOTPToMailHandlerCommand : IRequestHandler<SendOTPToMailCommand, bool>
+        public class SendOTPToMailHandlerCommand : ICommandHandler<SendOTPToMailCommand, bool>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMailService _mailService;
@@ -45,7 +47,7 @@ namespace Tailor_Business.Commands.User
             }
             private string GenOTPRandom()
             {
-                Random random = new Random();
+                Random random = new();
 
                 // Tạo mã OTP ngẫu nhiên gồm 6 chữ số
                 int otpLength = 6;
@@ -57,6 +59,13 @@ namespace Tailor_Business.Commands.User
                 }
                 return otp;
             }
+        }
+    }
+    public class SendOTPToMailCommandValidator : AbstractValidator<SendOTPToMailCommand>
+    {
+        public SendOTPToMailCommandValidator()
+        {
+            RuleFor(x => x.UserName).NotEmpty();
         }
     }
 }

@@ -5,15 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Dto.InventoryCategory;
 using Tailor_Infrastructure.Dto.ProductCategory;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Queries.ProductCategory
 {
-    public class GetAllInventoryCategoryQuery:IRequest<IEnumerable<InventoryCategoryDto>>
+    public class GetAllInventoryCategoryQuery: IQuery<IEnumerable<InventoryCategoryDto>>
     {
-        public class GetAllProductCategoryHandlerQuery : IRequestHandler<GetAllInventoryCategoryQuery, IEnumerable<InventoryCategoryDto>>
+        public class GetAllProductCategoryHandlerQuery : IQueryHandler<GetAllInventoryCategoryQuery, IEnumerable<InventoryCategoryDto>>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;

@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Dto.Product;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class CreateProductCommand : IRequest<Unit>
+    public class CreateProductCommand : ICommand<Unit>
     {
         #region param
         public int ProductCategoryId { get; set; }
@@ -15,7 +16,7 @@ namespace Tailor_Business.Commands.User
         public decimal Price { get; set; }
         public string Note { get; set; } = default!;
         #endregion
-        public class CreateProductHanlderCommand : IRequestHandler<CreateProductCommand, Unit>
+        public class CreateProductHanlderCommand : ICommandHandler<CreateProductCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly  IMapper _mapper;

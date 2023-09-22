@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Dto.InventoryCategory;
 using Tailor_Infrastructure.Dto.Product;
 using Tailor_Infrastructure.Dto.ProductCategory;
@@ -15,14 +16,14 @@ using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class UpdateInventoryCategoryCommand : IRequest<InventoryCategoryDto>
+    public class UpdateInventoryCategoryCommand : ICommand<InventoryCategoryDto>
     {
         #region param
         public int Id { get; set; }
         public string Name { get; set; } = default!;
 
         #endregion
-        public class UpdateInventoryCategoryHandlerCommand : IRequestHandler<UpdateInventoryCategoryCommand, InventoryCategoryDto>
+        public class UpdateInventoryCategoryHandlerCommand : ICommandHandler<UpdateInventoryCategoryCommand, InventoryCategoryDto>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;

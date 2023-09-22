@@ -1,18 +1,19 @@
 ﻿using AutoMapper;
 using MediatR;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Dto.Product;
 using Tailor_Infrastructure.Dto.UserSample;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class CreateUserSampleCommand : IRequest<Unit>
+    public class CreateUserSampleCommand : ICommand<Unit>
     {
         #region param
         public Guid UserId { get; set; }
         public int SampleId { get; set; }
         #endregion
-        public class CreateUserSampleHanlderCommand : IRequestHandler<CreateUserSampleCommand, Unit>
+        public class CreateUserSampleHanlderCommand : ICommandHandler<CreateUserSampleCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly  IMapper _mapper;

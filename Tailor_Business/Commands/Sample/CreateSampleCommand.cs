@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Tailor_Business.Commons;
 using Tailor_Domain.Entities;
 using Tailor_Infrastructure.Dto.InventoryCategory;
 using Tailor_Infrastructure.Dto.Product;
@@ -9,7 +10,7 @@ using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class CreateSampleCommand : IRequest<Unit>
+    public class CreateSampleCommand : ICommand<Unit>
     {
         #region param
         public int ProductCategoryId { get; set; }
@@ -18,7 +19,7 @@ namespace Tailor_Business.Commands.User
         public string Images { get; set; } = default!;
         public string Note { get; set; } = default!;
         #endregion
-        public class CreateSamplHanlderCommand : IRequestHandler<CreateSampleCommand, Unit>
+        public class CreateSamplHanlderCommand : ICommandHandler<CreateSampleCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly  IMapper _mapper;

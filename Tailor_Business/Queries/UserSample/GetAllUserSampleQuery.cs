@@ -5,15 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Dto.ProductCategory;
 using Tailor_Infrastructure.Dto.UserSample;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Queries.ProductCategory
 {
-    public class GetAllUserSampleQuery : IRequest<IEnumerable<UserSampleDto>>
+    public class GetAllUserSampleQuery : IQuery<IEnumerable<UserSampleDto>>
     {
-        public class GetAllUserSampleHandlerQuery : IRequestHandler<GetAllUserSampleQuery, IEnumerable<UserSampleDto>>
+        public class GetAllUserSampleHandlerQuery : IQueryHandler<GetAllUserSampleQuery, IEnumerable<UserSampleDto>>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;

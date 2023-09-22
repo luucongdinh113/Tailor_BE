@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class DeleteUserSampleCommand : IRequest<Unit>
+    public class DeleteUserSampleCommand : ICommand<Unit>
     {
         #region parameter
         public int Id { get; set; }
         #endregion
-        public class DeleteUserSampleHandlerCommand : IRequestHandler<DeleteUserSampleCommand, Unit>
+        public class DeleteUserSampleHandlerCommand : ICommandHandler<DeleteUserSampleCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             public DeleteUserSampleHandlerCommand(IUnitOfWork unitOfWorkRepository)

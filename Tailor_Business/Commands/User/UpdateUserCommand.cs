@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class UpdateUserCommand: IRequest<UserDto>
+    public class UpdateUserCommand: ICommand<UserDto>
     {
         #region param
         public Guid Id { get; set; }
@@ -43,7 +44,7 @@ namespace Tailor_Business.Commands.User
         public double PantLegWidth { get; set; }
 
         #endregion
-        public class UpdateUserHandlerCommand : IRequestHandler<UpdateUserCommand, UserDto>
+        public class UpdateUserHandlerCommand : ICommandHandler<UpdateUserCommand, UserDto>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;
@@ -59,6 +60,16 @@ namespace Tailor_Business.Commands.User
                 var updateUser = _mapper.Map<UpdateUser>(request);
                 return Task.FromResult(_unitOfWorkRepository.UserRepository.UpdateUser(updateUser)); 
             }
+        }
+    }
+    public class UpdatePasswordForUserCommanddValidator : AbstractValidator<UpdateUserCommand>
+    {
+        public UpdatePasswordForUserCommanddValidator()
+        {
+            RuleFor(x => x.Id).NotEmpty();
+            RuleFor(x => x.FirstName).NotEmpty().MaximumLength(100);
+            RuleFor(x => x.LastName).NotEmpty().MaximumLength(100);
+            RuleFor(c => c.PassWord).MinimumLength(8);
         }
     }
 }

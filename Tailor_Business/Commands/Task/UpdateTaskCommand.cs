@@ -6,13 +6,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Dto.Task;
 using Tailor_Infrastructure.Dto.User;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class UpdateTaskCommand: IRequest<TaskDto>
+    public class UpdateTaskCommand: ICommand<TaskDto>
     {
         #region param
         public int Id { get; set; }
@@ -29,7 +30,7 @@ namespace Tailor_Business.Commands.User
         public int Priority { get; set; }
 
         #endregion
-        public class UpdateTaskHandlerCommand : IRequestHandler<UpdateTaskCommand, TaskDto>
+        public class UpdateTaskHandlerCommand : ICommandHandler<UpdateTaskCommand, TaskDto>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;

@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Dto.Task;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class CreateTaskCommand : IRequest<Unit>
+    public class CreateTaskCommand : ICommand<Unit>
     {
         #region param
         public Guid? UserId { get; set; }
@@ -20,7 +21,7 @@ namespace Tailor_Business.Commands.User
         public DateTime EndTime { get; set; }
         public int Priority { get; set; }
         #endregion
-        public class CreateTaskHanlderCommand : IRequestHandler<CreateTaskCommand, Unit>
+        public class CreateTaskHanlderCommand : ICommandHandler<CreateTaskCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly  IMapper _mapper;

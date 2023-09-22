@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
+using System.Windows.Input;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Dto.Inventory;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class CreateInventoryCommand : IRequest<Unit>
+    public class CreateInventoryCommand : ICommand<Unit>
     {
         #region param
         public int InventoryCategoryId { get; set; }
@@ -14,7 +16,7 @@ namespace Tailor_Business.Commands.User
         public string Images { get; set; } = default!;
         public decimal Price { get; set; }
         #endregion
-        public class CreateInventoryCommandHanlderCommand : IRequestHandler<CreateInventoryCommand, Unit>
+        public class CreateInventoryCommandHanlderCommand : ICommandHandler<CreateInventoryCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly  IMapper _mapper;

@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 using Tailor_Business;
+using Tailor_Business.Commons;
 
 namespace Tailor_BE
 {
@@ -18,6 +20,8 @@ namespace Tailor_BE
             builder.Services.AddServiceBusiness(config);
 
             builder.Services.AddControllers();
+
+            builder.Services.AddTransient<ExceptionHandlingMiddleware>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
@@ -60,7 +64,7 @@ namespace Tailor_BE
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy("AdminOnly", policy =>
-                    policy.RequireClaim("Admin"));
+                    policy.RequireRole("Admin"));
             });
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -114,8 +118,11 @@ namespace Tailor_BE
             }
             app.UseRouting();
 
+
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseHttpsRedirection();
 

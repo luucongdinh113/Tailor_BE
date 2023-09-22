@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Queries.User
 {
-    public class CheckOTPQuery: IRequest<bool>
+    public class CheckOTPQuery: IQuery<bool>
     {
         public string OTP { get; set; } = default!;
         public string UserName { get; set; } = default!;
-        public class CheckOTPHandlerQuery : IRequestHandler<CheckOTPQuery, bool>
+        public class CheckOTPHandlerQuery : IQueryHandler<CheckOTPQuery, bool>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             public CheckOTPHandlerQuery(IUnitOfWork unitOfWorkRepository)

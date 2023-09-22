@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
 using System.ComponentModel.DataAnnotations.Schema;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Dto.Product;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class CreateNotifyCommand : IRequest<Unit>
+    public class CreateNotifyCommand : ICommand<Unit>
     {
         #region param
         public Guid UserId { get; set; }
@@ -17,7 +18,7 @@ namespace Tailor_Business.Commands.User
         public int Priority { get; set; }
         public bool IsRead { get; set; }
         #endregion
-        public class CreateNotifyHanlderCommand : IRequestHandler<CreateNotifyCommand, Unit>
+        public class CreateNotifyHanlderCommand : ICommandHandler<CreateNotifyCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly  IMapper _mapper;

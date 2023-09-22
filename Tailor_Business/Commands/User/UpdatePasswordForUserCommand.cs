@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Common;
 using Tailor_Infrastructure.Repositories.IRepositories;
 using Tailor_Infrastructure.Services;
@@ -6,7 +8,7 @@ using Tailor_Infrastructure.Services.IServices;
 
 namespace Tailor_Business.Commands.User
 {
-    public class UpdatePasswordForUserCommand: IRequest<bool>
+    public class UpdatePasswordForUserCommand: ICommand<bool>
     {
         #region param
         public string OldPassword { get; set; } = default!;
@@ -15,7 +17,7 @@ namespace Tailor_Business.Commands.User
 
         #endregion
 
-        public class UpdatePasswordForUserHandlerCommand : IRequestHandler<UpdatePasswordForUserCommand, bool>
+        public class UpdatePasswordForUserHandlerCommand : ICommandHandler<UpdatePasswordForUserCommand, bool>
         {
             private readonly IUnitOfWork _unitOfWork;
             private readonly ILoggedUserService _loggedUserService;
@@ -37,6 +39,15 @@ namespace Tailor_Business.Commands.User
                 _unitOfWork.UserRepository.Update(user);
                 return true;
             }
+        }
+
+    }
+    public  class UpdatePasswordForUserCommandValidator : AbstractValidator<UpdatePasswordForUserCommand>
+    {
+        public UpdatePasswordForUserCommandValidator()
+        {
+            RuleFor(x => x.NewPassword).Equal(c=>c.OldPassword);
+            RuleFor(c => c.NewPassword).MinimumLength(8);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Dto.Product;
 using Tailor_Infrastructure.Dto.Task;
 using Tailor_Infrastructure.Dto.User;
@@ -14,7 +15,7 @@ using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class UpdateNotifyCommand : IRequest<ProductDto>
+    public class UpdateNotifyCommand : ICommand<ProductDto>
     {
         #region param
         public int Id { get; set; }
@@ -27,7 +28,7 @@ namespace Tailor_Business.Commands.User
         public bool IsRead { get; set; }
 
         #endregion
-        public class UpdateNotifyHandlerCommand : IRequestHandler<UpdateNotifyCommand, ProductDto>
+        public class UpdateNotifyHandlerCommand : ICommandHandler<UpdateNotifyCommand, ProductDto>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;

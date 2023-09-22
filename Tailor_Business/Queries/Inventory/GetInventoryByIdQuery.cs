@@ -5,18 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Dto.Inventory;
 using Tailor_Infrastructure.Dto.Product;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Queries.Product
 {
-    public class GetInventoryByIdQuery : IRequest<InventoryDto>
+    public class GetInventoryByIdQuery : IQuery<InventoryDto>
     {
         #region param
         public int Id { get; set; }
         #endregion
-        public class GetInventoryByIdHandlerQuery : IRequestHandler<GetInventoryByIdQuery, InventoryDto>
+        public class GetInventoryByIdHandlerQuery : IQueryHandler<GetInventoryByIdQuery, InventoryDto>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;

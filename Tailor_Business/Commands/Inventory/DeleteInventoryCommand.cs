@@ -4,16 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Tailor_Business.Commons;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class DeleteInventoryCommand : IRequest<Unit>
+    public class DeleteInventoryCommand : ICommand<Unit>
     {
         #region parameter
         public int Id { get; set; }
         #endregion
-        public class DeleteInventoryHandlerCommand : IRequestHandler<DeleteInventoryCommand, Unit>
+        public class DeleteInventoryHandlerCommand : ICommandHandler<DeleteInventoryCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             public DeleteInventoryHandlerCommand(IUnitOfWork unitOfWorkRepository)
