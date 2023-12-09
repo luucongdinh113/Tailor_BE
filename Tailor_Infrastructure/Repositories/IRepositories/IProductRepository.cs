@@ -10,7 +10,7 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
 {
     public interface IProductRepository: IGenericRepository<Product, int>
     {
-        void CreateProduct(CreateProduct createProduct);
+        ProductDto CreateProduct(CreateProduct createProduct);
         ProductDto UpdateProduct(UpdateProduct updateProduct);
     }
 }

@@ -21,21 +21,22 @@ namespace Tailor_Business.Commands.User
         public double NeckCircumference { get; set; }
         public double CheckCircumference { get; set; }
         public double WaistCircumference { get; set; }
-        public double HipCircumference { get; set; }
+        public double ButtCircumference { get; set; }
         public double ShoulderWidth { get; set; }
-        public double UnderamCircumference { get; set; }
+        public double UnderarmCircumference { get; set; }
         public double SleeveLength { get; set; }
         public double CuffCircumference { get; set; }
         public double ShirtLength { get; set; }
         public double ThighCircumference { get; set; }
         public double BottomCircumference { get; set; }
-        public double InseamLength { get; set; }
+        public double ArmCircumference { get; set; }
         public double PantLength { get; set; }
         public double KneeHeight { get; set; }
         public double PantLegWidth { get; set; }
+        public string Avatar { get; set; } = default!;
         public string UserName { get; set; } = default!;
-
         public string PassWord { get; set; } = default!;
+        public DateTime BirthDay { get; set; } = default!;
         #endregion
         public class CreateUserHanlderCommand : ICommandHandler<CreateUserCommand,Unit>
         {
@@ -53,8 +54,10 @@ namespace Tailor_Business.Commands.User
                 {
                     if (_unitOfWorkRepository.UserRepository.CheckUserExist(request.Phone))
                         throw new Exception($"User has phone {request.Phone} in DB");
-                    request.PassWord = PasswordHasher.HashPassword
-                  (request.PassWord);
+                    request.DateOfJoing = DateTime.UtcNow;
+                    request.UserName= request.UserName==""?request.Phone:request.UserName;
+                    request.PassWord = request.PassWord == ""?request.Phone:request.PassWord;
+                    request.PassWord = PasswordHasher.HashPassword(request.PassWord);
                     var createUser = _mapper.Map<CreateUser>(request);
                     _unitOfWorkRepository.UserRepository.CreateUser(createUser);
                     await _unitOfWorkRepository.CommitTransactionAsync(cancellationToken);

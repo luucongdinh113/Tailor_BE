@@ -14,5 +14,7 @@ namespace Tailor_Infrastructure.Dto.Product
         public string Images { get; set; } = default!;
         public decimal Price { get; set; }
         public string Note { get; set; } = default!;
+        public string NoteCloth { get; set; } = default!;
+        public decimal PriceCloth { get; set; } = default!;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tailor_Business.Commands.User;
 using Tailor_Business.Queries.ProductCategory;
@@ -8,6 +9,7 @@ namespace Tailor_BE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "AdminOnly")]
     public class ProductCategoryController : ControllerBase
     {
         private readonly IMediator _mediator;

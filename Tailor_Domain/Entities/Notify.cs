@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tailor_Domain.Entities
 {
@@ -22,5 +19,12 @@ namespace Tailor_Domain.Entities
         public string? LinkProduct { get; set; }
         public int Priority { get; set; }
         public bool IsRead { get; set; }
+    }
+    public class NotifyConfiguration : IEntityTypeConfiguration<Notify>
+    {
+        public void Configure(EntityTypeBuilder<Notify> builder)
+        {
+            builder.HasQueryFilter(c => c.IsDeleted == false || c.IsDeleted == null);
+        }
     }
 }

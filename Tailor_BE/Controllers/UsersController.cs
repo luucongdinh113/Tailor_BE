@@ -20,14 +20,23 @@ namespace Tailor_BE.Controllers
             _jWTService = jWTService;
             _mediator = mediator;
         }
+
         [AllowAnonymous]
         [HttpGet(nameof(Auth))]
         public async Task<IActionResult> Auth(string userName, string pwd)
         {
-            return Ok(await _jWTService.GenerateJSONWebToken(new UserModel() { UserName=userName, PassWord=pwd}));
+            try
+            {
+                return Ok(await _jWTService.GenerateJSONWebToken(new UserModel() { UserName = userName, PassWord = pwd }));
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if needed
+                return BadRequest(ex.Message);
+            }
         }
 
-        [AllowAnonymous]
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost("CreateUser")]
         public async Task<IActionResult> CreateUser(CreateUserCommand request, CancellationToken cancellation)
         {
@@ -37,6 +46,13 @@ namespace Tailor_BE.Controllers
         [Authorize(Policy = "AdminOnly")]
         [HttpDelete("DeleteUser")]
         public async Task<IActionResult> DeleteUser(DeleteUserCommand request, CancellationToken cancellation)
+        {
+            return Ok(await _mediator.Send(request, cancellation));
+        }
+
+        [Authorize(Policy = "AdminOnly")]
+        [HttpDelete("DeleteUsers")]
+        public async Task<IActionResult> DeleteUser(DeleteUsersCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
@@ -55,34 +71,44 @@ namespace Tailor_BE.Controllers
             return Ok(await _mediator.Send(new GetAllUsersQuery(), cancellationToken));
         }
 
-        [Authorize()]
+        [Authorize]
         [HttpGet("GetUser/{id}")]
         public async Task<IActionResult> GetUserById(Guid id, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new GetUserByIdQuery() { Id = id }, cancellationToken));
         }
 
+        [AllowAnonymous]
         [HttpGet("CheckOTP")]
         public async Task<IActionResult> CheckOTP(string oTP, string userName, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new CheckOTPQuery() { OTP=oTP,UserName=userName}, cancellationToken));
         }
 
+        [AllowAnonymous]
         [HttpPut("SendOTPToMail")]
         public async Task<IActionResult> SendOTPToMail(SendOTPToMailCommand request, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(request, cancellationToken));
         }
 
+        [AllowAnonymous]
         [HttpPut("ResetPassword")]
         public async Task<IActionResult> ResetPassword(ResetPwdCommand request, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(request, cancellationToken));
+            try
+            {
+                return Ok(await _mediator.Send(request, cancellationToken));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Authorize]
         [HttpPut("UpdatePasswordForUser")]
-        public async Task<IActionResult> UpdatePasswordForUser(UpdatePasswordForUserCommand request, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdatePasswordForUser(UpdateInformationAndPasswordForUserCommand request, CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(request, cancellationToken));
         }

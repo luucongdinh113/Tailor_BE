@@ -24,7 +24,7 @@ namespace Tailor_Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public void CreateTask(CreateTask inputTask)
+        public TaskDto CreateTask(CreateTask inputTask)
         {
             var task = _mapper.Map<Task>(inputTask);
             if(inputTask.UserId!=null)
@@ -34,6 +34,7 @@ namespace Tailor_Infrastructure.Repositories
             if (inputTask.ProductId != null)
                 _unitOfWorkRepository.ProductRepository.GetById(inputTask.ProductId.Value);
             _unitOfWorkRepository.TaskRepository.Insert(task);
+            return _mapper.Map<TaskDto>(task);
         }
         public TaskDto UpdateTask(UpdateTask updateTask)
         {

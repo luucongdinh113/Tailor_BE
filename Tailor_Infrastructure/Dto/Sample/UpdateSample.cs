@@ -15,5 +15,9 @@ namespace Tailor_Infrastructure.Dto.Sample
         public string Description { get; set; } = default!;
         public string Images { get; set; } = default!;
         public string Note { get; set; } = default!;
+        public double Price { get; set; }
+        public bool IsMale { get; set; }
+        public bool IsShow { get; set; }
+
     }
 }

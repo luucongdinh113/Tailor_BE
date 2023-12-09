@@ -26,10 +26,18 @@ namespace Tailor_Business.Queries.User
                 var dateTimeNow = DateTime.UtcNow;
                 var user = (await _unitOfWorkRepository.UserRepository.GetAsync(c => c.UserName == request.UserName)).FirstOrDefault();
                 if (user == null) return false;
-                if(user.OTP==request.OTP && DateTime.Compare(dateTimeNow,user.ExpiredOTP)<1)
+                if(user.OTP==request.OTP && DateTime.Compare(dateTimeNow,user.ExpiredOTP) < 1)
                 {
                     return true;
-                }    
+                }
+                else if (user.OTP != request.OTP)
+                {
+                    throw new Exception("OTP Code  is not correct");
+                }
+                else if(DateTime.Compare(dateTimeNow, user.ExpiredOTP) >= 1)
+                {
+                    throw new Exception("OTP Code had expired");
+                }
                 return false;
             }
         }

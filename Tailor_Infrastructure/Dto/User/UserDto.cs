@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Tailor_Infrastructure.Dto.User
 {
@@ -22,19 +21,24 @@ namespace Tailor_Infrastructure.Dto.User
         public double NeckCircumference { get; set; }
         public double CheckCircumference { get; set; }
         public double WaistCircumference { get; set; }
-        public double HipCircumference { get; set; }
+        public double ButtCircumference { get; set; }
         public double ShoulderWidth { get; set; }
-        public double UnderamCircumference { get; set; }
+        public double UnderarmCircumference { get; set; }
         public double SleeveLength { get; set; }
         public double CuffCircumference { get; set; }
         public double ShirtLength { get; set; }
         public double ThighCircumference { get; set; }
         public double BottomCircumference { get; set; }
-        public double InseamLength { get; set; }
+        public double ArmCircumference { get; set; }
         public double PantLength { get; set; }
         public double KneeHeight { get; set; }
         public double PantLegWidth { get; set; }
         public string UserName { get; set; } = default!;
-        public string PassWord { get; set; } = default!;
+        public string Avatar { get; set; } = default!;
+        public DateTime BirthDay { get; set; } = default!;
+
+        public List<Tailor_Domain.Entities.Notify> Notifies { get; set; } = new List<Tailor_Domain.Entities.Notify>();
+        public List<Tailor_Domain.Entities.Task> Tasks { get; set; } = new List<Tailor_Domain.Entities.Task>();
+
     }
 }

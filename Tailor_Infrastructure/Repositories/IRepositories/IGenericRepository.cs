@@ -17,7 +17,9 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
         Task<TEntity> GetByIdAsync(Tkey id);
         Task InsertAsync(TEntity entity);
         Task DeleteAsync(Tkey id);
+        Task DeleteListAsync(List<Tkey> ids);
         Task DeleteAsync(TEntity entity);
+        Task DeleteListAsync(List<TEntity> entitys);
         Task UpdateAsync(TEntity entity);
     }
 }

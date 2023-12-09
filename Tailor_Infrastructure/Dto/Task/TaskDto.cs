@@ -11,7 +11,7 @@ namespace Tailor_Infrastructure.Dto.Task
     {
         public int Id { get; set; }
         public Guid? UserId { get; set; }
-        public Tailor_Domain.Entities.User? User { get; set; }
+        public Tailor_Domain.Entities.User? User {  get; set; }
 
         public int? SampleId { get; set; }
         public Tailor_Domain.Entities.Sample? Sample { get; set; }
@@ -24,5 +24,13 @@ namespace Tailor_Infrastructure.Dto.Task
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int Priority { get; set; }
+        public int Index { get; set; } = default!;
+        public bool IsUseCloth { get; set; }
+        public string Note { get; set; } = default!;
+        public int Percent { get; set; }
+        public DateTime? CompleteDate { get; set; }
+        public DateTime? DoneDate { get; set; }
+
+
     }
 }

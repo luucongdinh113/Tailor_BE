@@ -9,6 +9,7 @@ namespace Tailor_BE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserSampleController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,31 +19,28 @@ namespace Tailor_BE.Controllers
             _mediator = mediator;
         }
 
-        [AllowAnonymous]
         [HttpPost("CreateUserSample")]
         public async Task<IActionResult> CreateUCreateUserSampleser(CreateUserSampleCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
 
-        [AllowAnonymous]
         [HttpDelete("DeleteUserSample")]
         public async Task<IActionResult> DeleteUserSample(DeleteUserSampleCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
 
-        [AllowAnonymous]
         [HttpPut("UpdateUserSample")]
         public async Task<IActionResult> UpdateUserSample(UpdateUserSampleCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
 
-        [HttpGet("GetAllUserSample")]
-        public async Task<IActionResult> GetAllUserSample(CancellationToken cancellationToken)
+        [HttpGet("GetUserSampleByUserQuery")]
+        public async Task<IActionResult> GetUserSampleByUserQuery(Guid userId,CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new GetAllUserSampleQuery(), cancellationToken));
+            return Ok(await _mediator.Send(new GetUserSampleByUserQuery() { UserId=userId }, cancellationToken));
         }
     }
 }

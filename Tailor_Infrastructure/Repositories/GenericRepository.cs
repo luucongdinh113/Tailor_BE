@@ -133,5 +133,26 @@ namespace Tailor_Infrastructure.Repositories
             _dbSet.Update(entity);
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteListAsync(List<TKey> ids)
+        {
+            List<TEntity> entitys = await _dbSet.Where(c=>ids.Contains(c.Id)).ToListAsync();
+
+            _dbSet.RemoveRange(entitys);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteListAsync(List<TEntity> entitys)
+        {
+            entitys.ForEach(entity =>
+            {
+                if (_context.Entry(entity).State == EntityState.Detached)
+                {
+                    _dbSet.Attach(entity);
+                }
+            });
+            _dbSet.RemoveRange(entitys);
+            await _context.SaveChangesAsync();
+        }
     }
 }

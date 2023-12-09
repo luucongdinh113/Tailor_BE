@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Tailor_Domain.Entities;
 using Tailor_Infrastructure.Dto.Chat;
+using Tailor_Infrastructure.Dto.ImageProduct;
 using Tailor_Infrastructure.Dto.Inventory;
 using Tailor_Infrastructure.Dto.InventoryCategory;
 using Tailor_Infrastructure.Dto.Notify;
@@ -57,6 +58,9 @@ namespace Tailor_Infrastructure
             CreateMap<CreateUserSample, UserSample>();
             CreateMap<UpdateUserSample, UserSample>();
             CreateMap<UserSample, UserSampleDto>();
+
+            CreateMap<CreateImage, ImagesProduct>();
+
         }
     }
 }

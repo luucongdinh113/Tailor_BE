@@ -24,6 +24,8 @@ namespace Tailor_Business.Commands.User
         public string Images { get; set; } = default!;
         public decimal Price { get; set; }
         public string Note { get; set; } = default!;
+        public string NoteCloth { get; set; } = default!;
+        public decimal PriceCloth { get; set; } = default!;
 
         #endregion
         public class UpdateProductHandlerCommand : ICommandHandler<UpdateProductCommand, ProductDto>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tailor_Business.Commons;
+using Tailor_Domain.Entities;
 using Tailor_Infrastructure.Dto.Task;
 using Tailor_Infrastructure.Dto.User;
 using Tailor_Infrastructure.Repositories.IRepositories;
@@ -28,6 +29,10 @@ namespace Tailor_Business.Commands.User
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int Priority { get; set; }
+        public int Index { get; set; } = default!;
+        public bool IsUseCloth { get; set; }
+        public string Note { get; set; } = default!;
+        public int Percent { get; set; }
 
         #endregion
         public class UpdateTaskHandlerCommand : ICommandHandler<UpdateTaskCommand, TaskDto>
@@ -43,7 +48,20 @@ namespace Tailor_Business.Commands.User
             public Task<TaskDto> Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
             {
                 var updateTask = _mapper.Map<UpdateTask>(request);
-                return Task.FromResult(_unitOfWorkRepository.TaskRepository.UpdateTask(updateTask));
+                if (request.Status == "complete")
+                {
+                    updateTask.CompleteDate = DateTime.UtcNow;
+                    updateTask.Percent = 100;
+                }
+                else if (request.Status == "done")
+                {
+                    updateTask.DoneDate = DateTime.UtcNow;
+                    updateTask.Percent = 100;
+                }
+                else if (request.Status == "todo") updateTask.Percent = 0;
+
+                if (request.Percent == 100 && request.Status != "complete") updateTask.Status = "done";
+                return System.Threading.Tasks.Task.FromResult(_unitOfWorkRepository.TaskRepository.UpdateTask(updateTask));
             }
         }
     }

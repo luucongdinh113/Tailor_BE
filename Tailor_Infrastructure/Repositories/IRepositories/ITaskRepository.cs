@@ -4,7 +4,7 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
 {
     public interface ITaskRepository : IGenericRepository<Task, int>
     {
-        void CreateTask(CreateTask task);
+        TaskDto CreateTask(CreateTask task);
         TaskDto UpdateTask(UpdateTask updateTask);
     }
 }

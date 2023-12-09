@@ -25,23 +25,26 @@ namespace Tailor_Business.Commands.User
         public string LastName { get; set; } = default!;
         public DateTime DateOfJoing { get; set; } = DateTime.Now;
         public bool? IsAdmin { get; set; } = false;
-        public string UserName { get; set; } = default!;
-        public string PassWord { get; set; } = default!;
+        public string? UserName { get; set; } = default!;
+        public string? PassWord { get; set; } = default!;
         public double NeckCircumference { get; set; }
         public double CheckCircumference { get; set; }
         public double WaistCircumference { get; set; }
-        public double HipCircumference { get; set; }
+        public double ButtCircumference { get; set; }
         public double ShoulderWidth { get; set; }
-        public double UnderamCircumference { get; set; }
+        public double UnderarmCircumference { get; set; }
         public double SleeveLength { get; set; }
         public double CuffCircumference { get; set; }
         public double ShirtLength { get; set; }
         public double ThighCircumference { get; set; }
         public double BottomCircumference { get; set; }
-        public double InseamLength { get; set; }
+        public double ArmCircumference { get; set; }
         public double PantLength { get; set; }
         public double KneeHeight { get; set; }
         public double PantLegWidth { get; set; }
+        public string Avatar { get; set; } = default!;
+        public DateTime BirthDay { get; set; } = default!;
+
 
         #endregion
         public class UpdateUserHandlerCommand : ICommandHandler<UpdateUserCommand, UserDto>
@@ -56,7 +59,14 @@ namespace Tailor_Business.Commands.User
 
             public Task<UserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
-                request.PassWord = PasswordHasher.HashPassword(request.PassWord);
+                if (!String.IsNullOrEmpty(request.PassWord))
+                {
+                    if(request.PassWord.Length<8)
+                    {
+                        throw new Exception("Password must be greater than 8 characters");
+                    }    
+                    request.PassWord = PasswordHasher.HashPassword(request.PassWord);
+                }
                 var updateUser = _mapper.Map<UpdateUser>(request);
                 return Task.FromResult(_unitOfWorkRepository.UserRepository.UpdateUser(updateUser)); 
             }
@@ -69,7 +79,6 @@ namespace Tailor_Business.Commands.User
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.FirstName).NotEmpty().MaximumLength(100);
             RuleFor(x => x.LastName).NotEmpty().MaximumLength(100);
-            RuleFor(c => c.PassWord).MinimumLength(8);
         }
     }
 }

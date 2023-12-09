@@ -20,11 +20,12 @@ namespace Tailor_Infrastructure.Repositories
             _unitOfWorkRepository = unitOfWorkRepository;
             _mapper = mapper;
         }
-        public void CreateProduct(CreateProduct createProduct)
+        public ProductDto CreateProduct(CreateProduct createProduct)
         {
             var product=_mapper.Map<Product>(createProduct);
             _unitOfWorkRepository.ProductCategoryRepository.GetById(createProduct.ProductCategoryId);
             _unitOfWorkRepository.ProductRepository.Insert(product);
+            return _mapper.Map<ProductDto>(product);
         }
         public ProductDto UpdateProduct(UpdateProduct updateProduct)
         {

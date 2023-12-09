@@ -1,11 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tailor_Domain.Entities
 {
@@ -29,6 +24,7 @@ namespace Tailor_Domain.Entities
         {
             builder.HasOne(c => c.SenderUser).WithMany(c => c.SentMessages).HasForeignKey(sender=>sender.SenderUserId);
             builder.HasOne(c => c.ReceiverUser).WithMany(c => c.ReceivedMessages).HasForeignKey(receiver=>receiver.ReceiverUserId);
+            builder.HasQueryFilter(c => c.IsDeleted == false);
         }
     }
 }

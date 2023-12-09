@@ -1,14 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tailor_Domain.Entities
 {
+    //status: todo, doing, done, complete
     public class Task: BaseEnity<int>
     {
         [ForeignKey(nameof(UserId))]
@@ -28,14 +24,20 @@ namespace Tailor_Domain.Entities
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int Priority { get; set; }
-
-        public ICollection<Notify> Notifies { get; set; } = default!;
+        public int Index{ get; set; } = default!;
+        public bool IsUseCloth { get; set; }
+        public string Note { get; set; } = default!;
+        public int Percent { get; set; }
+        public DateTime? CompleteDate { get; set; }
+        public DateTime? DoneDate { get; set; }
+        public List<Notify> Notifies { get; set; } = default!;
     }
     public class TaskConfiguration : IEntityTypeConfiguration<Task>
     {
         public void Configure(EntityTypeBuilder<Task> builder)
         {
             builder.HasMany(c => c.Notifies).WithOne(c => c.Task).HasForeignKey(notify=>notify.TaskId);
+            builder.HasQueryFilter(c => c.IsDeleted == false || c.IsDeleted == null);
         }
     }
 }

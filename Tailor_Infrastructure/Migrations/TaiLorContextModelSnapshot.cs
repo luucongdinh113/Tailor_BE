@@ -30,7 +30,6 @@ namespace Tailor_Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
@@ -39,7 +38,7 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsRead")
@@ -70,6 +69,44 @@ namespace Tailor_Infrastructure.Migrations
                     b.ToTable("Chats");
                 });
 
+            modelBuilder.Entity("Tailor_Domain.Entities.ImagesProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("LinkImage")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ImagesProducts");
+                });
+
             modelBuilder.Entity("Tailor_Domain.Entities.Inventory", b =>
                 {
                     b.Property<int>("Id")
@@ -77,7 +114,6 @@ namespace Tailor_Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
@@ -97,7 +133,7 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<int>("InventoryCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
@@ -107,11 +143,17 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(65,30)");
+
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("Used")
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 
@@ -127,7 +169,6 @@ namespace Tailor_Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
@@ -136,7 +177,7 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
@@ -165,7 +206,6 @@ namespace Tailor_Infrastructure.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
@@ -174,7 +214,7 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("IsRead")
@@ -219,7 +259,6 @@ namespace Tailor_Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
@@ -236,7 +275,7 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
@@ -247,7 +286,14 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("NoteCloth")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<decimal>("Price")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("PriceCloth")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<int>("ProductCategoryId")
@@ -273,7 +319,6 @@ namespace Tailor_Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
@@ -282,7 +327,7 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
@@ -307,7 +352,6 @@ namespace Tailor_Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
@@ -324,7 +368,13 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsMale")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsShow")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
@@ -334,6 +384,9 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<string>("Note")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double");
 
                     b.Property<int>("ProductCategoryId")
                         .HasColumnType("int");
@@ -357,12 +410,14 @@ namespace Tailor_Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("CompleteDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
@@ -371,11 +426,27 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<DateTime?>("DoneDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<int>("Index")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsUseCloth")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Percent")
+                        .HasColumnType("int");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
@@ -423,14 +494,26 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<double>("ArmCircumference")
+                        .HasColumnType("double");
+
+                    b.Property<string>("Avatar")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("BirthDay")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<double>("BottomCircumference")
+                        .HasColumnType("double");
+
+                    b.Property<double>("ButtCircumference")
                         .HasColumnType("double");
 
                     b.Property<double>("CheckCircumference")
                         .HasColumnType("double");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
@@ -456,16 +539,10 @@ namespace Tailor_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<double>("HipCircumference")
-                        .HasColumnType("double");
-
-                    b.Property<double>("InseamLength")
-                        .HasColumnType("double");
-
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<double>("KneeHeight")
@@ -489,7 +566,7 @@ namespace Tailor_Infrastructure.Migrations
 
                     b.Property<string>("PassWord")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -507,7 +584,7 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<double>("ThighCircumference")
                         .HasColumnType("double");
 
-                    b.Property<double>("UnderamCircumference")
+                    b.Property<double>("UnderarmCircumference")
                         .HasColumnType("double");
 
                     b.Property<string>("UpdatedBy")
@@ -525,9 +602,6 @@ namespace Tailor_Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PassWord")
-                        .IsUnique();
-
                     b.HasIndex("UserName")
                         .IsUnique();
 
@@ -541,7 +615,6 @@ namespace Tailor_Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTimeOffset>("CreatedDate")
@@ -550,7 +623,7 @@ namespace Tailor_Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("SampleId")
@@ -591,6 +664,17 @@ namespace Tailor_Infrastructure.Migrations
                     b.Navigation("ReceiverUser");
 
                     b.Navigation("SenderUser");
+                });
+
+            modelBuilder.Entity("Tailor_Domain.Entities.ImagesProduct", b =>
+                {
+                    b.HasOne("Tailor_Domain.Entities.Product", "Product")
+                        .WithMany("ImagesProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Tailor_Domain.Entities.Inventory", b =>
@@ -688,6 +772,11 @@ namespace Tailor_Infrastructure.Migrations
             modelBuilder.Entity("Tailor_Domain.Entities.InventoryCategory", b =>
                 {
                     b.Navigation("Inventories");
+                });
+
+            modelBuilder.Entity("Tailor_Domain.Entities.Product", b =>
+                {
+                    b.Navigation("ImagesProducts");
                 });
 
             modelBuilder.Entity("Tailor_Domain.Entities.ProductCategory", b =>

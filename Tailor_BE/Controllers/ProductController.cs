@@ -8,6 +8,7 @@ namespace Tailor_BE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "AdminOnly")]
     public class ProductController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -17,21 +18,18 @@ namespace Tailor_BE.Controllers
             _mediator = mediator;
         }
 
-        [AllowAnonymous]
         [HttpPost("CreateProduct")]
         public async Task<IActionResult> CreateProduct(CreateProductCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
 
-        [AllowAnonymous]
         [HttpDelete("DeleteProduct")]
         public async Task<IActionResult> DeleteProduct(DeleteProductCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }
 
-        [AllowAnonymous]
         [HttpPut("UpdateProduct")]
         public async Task<IActionResult> UpdateProduct(UpdateProductCommand request, CancellationToken cancellation)
         {

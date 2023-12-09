@@ -20,6 +20,10 @@ namespace Tailor_BE
             builder.Services.AddServiceBusiness(config);
 
             builder.Services.AddControllers();
+            builder.Services.AddControllersWithViews()
+                    .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                     );
 
             builder.Services.AddTransient<ExceptionHandlingMiddleware>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -60,6 +64,11 @@ namespace Tailor_BE
                     }
                 });
             });
+
+            builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+            {
+                builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+            }));
 
             builder.Services.AddAuthorization(options =>
             {
@@ -118,6 +127,7 @@ namespace Tailor_BE
             }
             app.UseRouting();
 
+            app.UseCors("corsapp");
 
             app.UseAuthentication();
             app.UseAuthorization();

@@ -27,7 +27,9 @@ namespace Tailor_Business.Commands.User
         public string Description { get; set; } = default!;
         public string Images { get; set; } = default!;
         public string Note { get; set; } = default!;
-
+        public double Price { get; set; }
+        public bool IsMale { get; set; }
+        public bool IsShow { get; set; }
         #endregion
         public class UpdateSampleHandlerCommand : ICommandHandler<UpdateSampleCommand, SampleDto>
         {

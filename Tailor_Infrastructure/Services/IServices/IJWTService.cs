@@ -8,6 +8,6 @@ namespace Tailor_Infrastructure.Services.IServices
 {
     public interface IJWTService
     {
-        Task<string> GenerateJSONWebToken(UserModel userInfo);
+        Task<UserData> GenerateJSONWebToken(UserModel userInfo);
     }
 }

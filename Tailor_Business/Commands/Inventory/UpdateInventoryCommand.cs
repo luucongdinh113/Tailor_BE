@@ -11,11 +11,13 @@ namespace Tailor_Business.Commands.User
     {
         #region param
         public int Id { get; set; }
-        public int InventoryId { get; set; }
+        public int InventoryCategoryId { get; set; }
         public string Name { get; set; } = default!;
         public string Describe { get; set; } = default!;
         public string Images { get; set; } = default!;
         public decimal Price { get; set; }
+        public decimal Total { get; set; }
+        public decimal Used { get; set; }
 
         #endregion
         public class UpdateInventoryHandlerCommand : ICommandHandler<UpdateInventoryCommand, InventoryDto>

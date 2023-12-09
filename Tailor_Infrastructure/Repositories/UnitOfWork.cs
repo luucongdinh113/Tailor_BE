@@ -26,6 +26,7 @@ namespace Tailor_Infrastructure.Repositories
         private ITaskRepository? _taskRepository;
         private IUserSampleRepository? _userSampleRepository;
         private IUserRepository? _userRepository;
+        private ImageProductRepository? _imageProduct;
 
         public UnitOfWork(TaiLorContext context, IDateTimeProvider dateTimeProvider, ILoggedUserService loggedInUserService, IMapper mapper)
         {
@@ -45,6 +46,7 @@ namespace Tailor_Infrastructure.Repositories
         public ITaskRepository TaskRepository => _taskRepository ??= new TaskRepository(_dbContext, this, _mapper);
         public IUserSampleRepository UserSampleRepository => _userSampleRepository ??= new UserSampleRepository(_dbContext, this, _mapper );
         public IUserRepository UserRepository => _userRepository ??= new UserRepository(_dbContext, this, _mapper);
+        public IImageProductRepository ImageProductRepository => _imageProduct ??= new ImageProductRepository(_dbContext, this, _mapper);
 
         public async Task<IDisposable> BeginTransactionAsync(CancellationToken cancellationToken = default)
         {
@@ -97,6 +99,40 @@ namespace Tailor_Infrastructure.Repositories
                 }
             }
             return await _dbContext.SaveChangesAsync();
+        }
+
+        public int SaveChanges()
+        {
+            foreach (var entry in _dbContext.ChangeTracker.Entries<ISoftDelete>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Deleted:
+                        entry.State = EntityState.Unchanged;
+                        entry.Entity.IsDeleted = true;
+                        entry.Entity.DeletedAt = DateTime.UtcNow;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            foreach (var entry in _dbContext.ChangeTracker.Entries<IUserInform>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Modified:
+                        entry.Entity.UpdatedDate = _dateTimeProvider.DatetTimeNowUtc;
+                        entry.Entity.UpdatedBy = _loggedInUserService.UserName;
+                        break;
+                    case EntityState.Added:
+                        entry.Entity.CreatedDate = _dateTimeProvider.DateTimeOffsetUtc;
+                        entry.Entity.CreatedBy = _loggedInUserService.UserName;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return  _dbContext.SaveChanges();
         }
     }
 }

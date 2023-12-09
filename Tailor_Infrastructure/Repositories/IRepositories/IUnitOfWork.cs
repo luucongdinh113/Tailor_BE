@@ -22,6 +22,7 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
         ITaskRepository TaskRepository { get; }
         IUserSampleRepository UserSampleRepository { get; }
         IUserRepository UserRepository { get; }
+        IImageProductRepository ImageProductRepository { get; }
 
         Task<IDisposable> BeginTransactionAsync(CancellationToken cancellationToken = default);
         Task CommitTransactionAsync(CancellationToken cancellationToken = default);

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Tailor_Domain.Entities
 {
     public interface ISoftDelete
     {
-        public bool IsDeleted { get; set; }
+        public bool? IsDeleted { get; set; }
         public DateTimeOffset? DeletedAt { get; set; }
         public void Undo()
         {
@@ -20,7 +15,7 @@ namespace Tailor_Domain.Entities
     public interface IUserInform
     {
         public DateTimeOffset CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
         public DateTimeOffset? UpdatedDate { get; set; }
         public string? UpdatedBy { get; set; }
     }
@@ -29,10 +24,10 @@ namespace Tailor_Domain.Entities
         [Key]
         public TKey Id { get; set; } = default!;
         public DateTimeOffset CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; } = default!;
         public DateTimeOffset? UpdatedDate { get; set; }
         public string? UpdatedBy { get; set; }
-        public bool IsDeleted { get; set; } = false;
+        public bool? IsDeleted { get; set; } = false;
         public DateTimeOffset? DeletedAt { get; set; }
     }
 }

@@ -15,6 +15,8 @@ namespace Tailor_Business.Commands.User
         public string Describe { get; set; } = default!;
         public string Images { get; set; } = default!;
         public decimal Price { get; set; }
+        public decimal Total { get; set; }
+        public decimal Used { get; set; }
         #endregion
         public class CreateInventoryCommandHanlderCommand : ICommandHandler<CreateInventoryCommand, Unit>
         {

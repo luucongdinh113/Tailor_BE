@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tailor_Business.Commands.User;
 using Tailor_Business.Queries.Product;
@@ -8,6 +9,7 @@ namespace Tailor_BE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "AdminOnly")]
     public class InventoryController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -24,9 +26,9 @@ namespace Tailor_BE.Controllers
         }
 
         [HttpDelete("DeleteInventory")]
-        public async Task<IActionResult> DeleteInventory(DeleteInventoryCommand request, CancellationToken cancellation)
+        public async Task<IActionResult> DeleteInventory(int id, CancellationToken cancellation)
         {
-            return Ok(await _mediator.Send(request, cancellation));
+            return Ok(await _mediator.Send(new DeleteInventoryCommand() { Id=id}, cancellation));
         }
 
         [HttpPut("UpdateInventory")]
