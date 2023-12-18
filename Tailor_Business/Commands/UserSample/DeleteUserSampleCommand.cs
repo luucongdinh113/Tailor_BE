@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tailor_Business.Commons;
+using Tailor_Infrastructure.Dto.UserSample;
 using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
@@ -25,7 +26,9 @@ namespace Tailor_Business.Commands.User
 
             public async Task<Unit> Handle(DeleteUserSampleCommand request, CancellationToken cancellationToken)
             {
-                await _unitOfWorkRepository.UserSampleRepository.DeleteAsync(request.Id);
+                var sampleUser = await _unitOfWorkRepository.UserSampleRepository.GetByIdAsync(request.Id);
+                sampleUser.Liked = false;
+                _unitOfWorkRepository.UserSampleRepository.Update(sampleUser);
                 return Unit.Value;
             }
         }

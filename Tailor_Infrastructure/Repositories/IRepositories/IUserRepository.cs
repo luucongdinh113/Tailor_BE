@@ -14,6 +14,6 @@ namespace Tailor_Infrastructure.Repositories.IRepositories
         void CreateUser(CreateUser userInput);
         UserDto UpdateUser(UpdateUser userInput);
         Task<IEnumerable<UserDto>> GetAllAsync();
-        bool CheckUserExist(string phoneNumber);
+        bool CheckUserExist(string userName);
     }
 }

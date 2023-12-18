@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Tailor_Business.Commands.User;
+using Tailor_Business.Queries.Notify;
 using Tailor_Infrastructure.Services.IServices;
 
 namespace Tailor_BE.Controllers
@@ -30,6 +31,18 @@ namespace Tailor_BE.Controllers
 
         [HttpPut("UpdateNotify")]
         public async Task<IActionResult> UpdateNotify(UpdateNotifyCommand request, CancellationToken cancellation)
+        {
+            return Ok(await _mediator.Send(request, cancellation));
+        }
+
+        [HttpGet("GetNotifys")]
+        public async Task<IActionResult> GetNotifys(Guid userId, CancellationToken cancellation)
+        {
+            return Ok(await _mediator.Send(new GetNotifysQuery() { UserId=userId}, cancellation));
+        }
+
+        [HttpPut("UpdateReadeNotify")]
+        public async Task<IActionResult> UpdateReadeNotify(UpdateReadedNotifyCommand request, CancellationToken cancellation)
         {
             return Ok(await _mediator.Send(request, cancellation));
         }

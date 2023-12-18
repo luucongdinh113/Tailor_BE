@@ -14,24 +14,24 @@ using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Queries.ProductCategory
 {
-    public class GetUserSampleByUserQuery : IQuery<IEnumerable<UserSampleDto>>
+    public class CheckUserLikedSampleQuery : IQuery<bool>
     {
         public Guid UserId { get; set; }
-        public class GetAllUserSampleHandlerQuery : IQueryHandler<GetUserSampleByUserQuery, IEnumerable<UserSampleDto>>
+        public int SampleId{ get; set; }
+        public class CheckUserLikedSampleHandlerQuery : IQueryHandler<CheckUserLikedSampleQuery, bool>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;
             private readonly TaiLorContext _context;
-            public GetAllUserSampleHandlerQuery(IUnitOfWork unitOfWorkRepository, IMapper mapper,TaiLorContext context)
+            public CheckUserLikedSampleHandlerQuery(IUnitOfWork unitOfWorkRepository, IMapper mapper,TaiLorContext context)
             {
                 _mapper = mapper;
                 _unitOfWorkRepository = unitOfWorkRepository;
                 _context = context;
             }
-            public async Task<IEnumerable<UserSampleDto>> Handle(GetUserSampleByUserQuery request, CancellationToken cancellationToken)
+            public async Task<bool> Handle(CheckUserLikedSampleQuery request, CancellationToken cancellationToken)
             {
-                var userSamples = await _context.User_Samples.Include(c=>c.Sample).Include(c=>c.Sample.ProductCategory).Where(c=>c.UserId.Equals(request.UserId) && c.Liked).OrderByDescending(c=>c.CreatedDate).ToListAsync();
-                return userSamples.Select(c=>_mapper.Map<UserSampleDto>(c)).ToList();
+                return await _context.User_Samples.AnyAsync(c => c.UserId.Equals(request.UserId) && c.SampleId.Equals(request.SampleId) && c.Liked);
             }
         }
     }

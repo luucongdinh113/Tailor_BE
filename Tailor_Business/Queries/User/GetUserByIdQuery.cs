@@ -34,7 +34,7 @@ namespace Tailor_Business.Queries.User
 
             public async Task<UserDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)  
             {
-                var result = await _context.Users.Include(c => c.Tasks).Include(c=>c.Notifies).Where(c => c.Id.Equals(request.Id)).Select(c => _mapper.Map<UserDto>(c)).FirstOrDefaultAsync();
+                var result = await _context.Users.Where(c => c.Id.Equals(request.Id)).Select(c => _mapper.Map<UserDto>(c)).FirstOrDefaultAsync();
                 return result;
             }
         }

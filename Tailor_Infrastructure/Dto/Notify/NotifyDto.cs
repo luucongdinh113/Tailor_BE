@@ -19,5 +19,6 @@ namespace Tailor_Infrastructure.Dto.Notify
         public string? LinkProduct { get; set; }
         public int Priority { get; set; }
         public bool IsRead { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
     }
 }

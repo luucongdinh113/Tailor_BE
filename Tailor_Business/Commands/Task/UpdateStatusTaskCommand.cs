@@ -12,6 +12,7 @@ using Tailor_Infrastructure;
 using Tailor_Infrastructure.Dto.Task;
 using Tailor_Infrastructure.Dto.User;
 using Tailor_Infrastructure.Repositories.IRepositories;
+using Tailor_Infrastructure.Services.IServices;
 
 namespace Tailor_Business.Commands.User
 {
@@ -26,16 +27,22 @@ namespace Tailor_Business.Commands.User
         {
             private readonly TaiLorContext _context;
             private readonly IMapper _mapper;
-            public UpdateStatusTaskHandlerCommand(TaiLorContext context, IMapper mapper)
+            private readonly ICreateNotify _createNotify;
+            public UpdateStatusTaskHandlerCommand(TaiLorContext context, IMapper mapper, ICreateNotify createNotify)
             {
                 _mapper = mapper;
                 _context = context;
+                _createNotify= createNotify;
             }
 
             public async Task<TaskDto> Handle(UpdateStatusTaskCommand request, CancellationToken cancellationToken)
             {
-                var task = await _context.Tasks.Where(c => c.Id == request.Id).FirstOrDefaultAsync() ??
+                var task = await _context.Tasks.Include(c=>c.Product).Where(c => c.Id == request.Id).FirstOrDefaultAsync() ??
                     throw new Exception($"Not found object Task has Id = {request.Id}");
+                if (task.Status != request.Status)
+                {
+                    await _createNotify.CreateNotifyAsync(task, request.Status, null);
+                }
                 task.Status = request.Status;
                 if (request.Status == "complete")
                 {

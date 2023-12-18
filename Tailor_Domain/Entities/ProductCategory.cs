@@ -7,6 +7,7 @@ namespace Tailor_Domain.Entities
     {
         public string Name { get; set; } = default!;
         public List<Product> Products{ get; set; } = new List<Product>();
+
         public List<Sample> Samples{ get; set; } = new List<Sample>();
     }
     public class ProductCategoryConfiguration : IEntityTypeConfiguration<ProductCategory>

@@ -1,10 +1,4 @@
 ﻿using FluentValidation;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tailor_Business.Commons;
 using Tailor_Infrastructure.Common;
 using Tailor_Infrastructure.Repositories.IRepositories;

@@ -11,5 +11,6 @@ namespace Tailor_Infrastructure.Dto.UserSample
         public int Id { get; set; }
         public Guid UserId { get; set; }
         public int SampleId { get; set; }
+        public bool Liked { get; set; }
     }
 }

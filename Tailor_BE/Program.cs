@@ -1,12 +1,17 @@
+﻿using Google.Protobuf.WellKnownTypes;
+using Hangfire;
+using Hangfire.MemoryStorage;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
-using System.Security.Claims;
 using System.Text;
 using Tailor_Business;
 using Tailor_Business.Commons;
+using Tailor_Infrastructure;
+using Tailor_Infrastructure.Services;
+using Tailor_Infrastructure.Services.IServices;
 
 namespace Tailor_BE
 {
@@ -24,11 +29,9 @@ namespace Tailor_BE
                     .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                      );
-
             builder.Services.AddTransient<ExceptionHandlingMiddleware>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-
             //config authen
             builder.Services.AddSwaggerGen(swagger =>
             {
@@ -101,6 +104,10 @@ namespace Tailor_BE
                 };
             });
 
+            builder.Services.AddHangfire(conf =>
+            {
+                conf.UseMemoryStorage();
+            });
 
             //config log
             builder.Host.ConfigureLogging(logging =>
@@ -110,8 +117,19 @@ namespace Tailor_BE
             });
             //config MediatR
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-
             var app = builder.Build();
+
+            
+
+            app.UseHangfireServer();
+            using (var scope = app.Services.CreateScope())
+            {
+                var scopedServiceProvider = scope.ServiceProvider;
+                var createNotify = scopedServiceProvider.GetService<IHttpContextAccessor>();
+                RecurringJob.AddOrUpdate<HangfireJobs>(x => x.CheckAdminJob(), Cron.Daily());
+            }
+            // Use taiLorContext as needed
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -139,6 +157,25 @@ namespace Tailor_BE
             app.MapControllers();
 
             app.Run();
+        }
+
+    }
+    public class HangfireJobs
+    {
+        private readonly IServiceProvider _serviceProvider;
+
+        public HangfireJobs(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public void CheckAdminJob()
+        {
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var createNotify = scope.ServiceProvider.GetRequiredService<ICreateNotify>();
+                createNotify.CheckAdmin().Wait(); // Ensure the task is awaited
+            }
         }
     }
 }

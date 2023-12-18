@@ -17,5 +17,6 @@ namespace Tailor_Infrastructure.Dto.UserSample
         public Tailor_Domain.Entities.Sample Sample { get; set; } = default!;
 
         public DateTimeOffset CreatedDate { get; set; }
+        public bool Liked{ get; set; }
     }
 }

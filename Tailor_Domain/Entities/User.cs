@@ -46,6 +46,7 @@ namespace Tailor_Domain.Entities
 
         public List<Chat> ReceivedMessages { get; set; }=new List<Chat>();
         public List<Chat> SentMessages { get; set; }=new List<Chat>();
+
         public List<Notify> Notifies{ get; set; }=new List<Notify>();
         public List<Task> Tasks{ get; set; }=new List<Task>();
         public List<UserSample> User_Samples{ get; set; }=new List<UserSample>();

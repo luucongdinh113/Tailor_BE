@@ -67,6 +67,7 @@ namespace Tailor_Business.Commands.User
                     }    
                     request.PassWord = PasswordHasher.HashPassword(request.PassWord);
                 }
+                
                 var updateUser = _mapper.Map<UpdateUser>(request);
                 return Task.FromResult(_unitOfWorkRepository.UserRepository.UpdateUser(updateUser)); 
             }

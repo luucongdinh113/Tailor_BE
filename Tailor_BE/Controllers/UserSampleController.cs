@@ -42,5 +42,11 @@ namespace Tailor_BE.Controllers
         {
             return Ok(await _mediator.Send(new GetUserSampleByUserQuery() { UserId=userId }, cancellationToken));
         }
+
+        [HttpGet("CheckLiked")]
+        public async Task<IActionResult> CheckLiked(Guid userId, int sampleId, CancellationToken cancellationToken)
+        {
+            return Ok(await _mediator.Send(new CheckUserLikedSampleQuery() { UserId = userId, SampleId= sampleId }, cancellationToken));
+        }
     }
 }

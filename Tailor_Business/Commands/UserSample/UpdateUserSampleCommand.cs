@@ -15,15 +15,15 @@ using Tailor_Infrastructure.Repositories.IRepositories;
 
 namespace Tailor_Business.Commands.User
 {
-    public class UpdateUserSampleCommand : ICommand<UserSampleDto>
+    public class UpdateUserSampleCommand : ICommand<Unit>
     {
         #region param
-        public int Id { get; set; }
         public Guid UserId { get; set; }
         public int SampleId { get; set; }
+        public bool Liked { get; set; }
 
         #endregion
-        public class UpdateUserSampleHandlerCommand : ICommandHandler<UpdateUserSampleCommand, UserSampleDto>
+        public class UpdateUserSampleHandlerCommand : ICommandHandler<UpdateUserSampleCommand, Unit>
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;
@@ -33,10 +33,23 @@ namespace Tailor_Business.Commands.User
                 _mapper = mapper;
             }
 
-            public Task<UserSampleDto> Handle(UpdateUserSampleCommand request, CancellationToken cancellationToken)
+            public Task<Unit> Handle(UpdateUserSampleCommand request, CancellationToken cancellationToken)
             {
                 var updateUserSample = _mapper.Map<UpdateUserSample>(request);
-                return Task.FromResult(_unitOfWorkRepository.UserSampleRepository.UpdateProduct(updateUserSample));
+                var sampleUsers = _unitOfWorkRepository.UserSampleRepository.Get(c => c.UserId.Equals(request.UserId) && c.SampleId.Equals(request.SampleId));
+                if (sampleUsers.Count() == 0 || sampleUsers == null)
+                {
+                    var createUserSample = _mapper.Map<CreateUserSample>(request);
+                    createUserSample.Liked = request.Liked;
+                    _unitOfWorkRepository.UserSampleRepository.CreateUserSample(createUserSample);
+                }
+                else
+                {
+                    var sampleUser = (sampleUsers.ToArray())[0];
+                    sampleUser.Liked = request.Liked;
+                    _unitOfWorkRepository.UserSampleRepository.Update(sampleUser);
+                }
+                return Task.FromResult(Unit.Value);
             }
         }
     }

@@ -28,13 +28,14 @@ namespace Tailor_Infrastructure.Repositories
             _unitOfWorkRepository.UserRepository.Insert(user);
         }
 
-        public bool CheckUserExist(string phoneNumber)
+        public bool CheckUserExist(string userName)
         {
-            return _context.Users.Any(c => c.Phone == phoneNumber);
+            return _context.Users.Any(c => c.UserName == userName);
         }
         public UserDto UpdateUser(UpdateUser userInput)
         {
             var user = _unitOfWorkRepository.UserRepository.GetById(userInput.Id);
+            if(userInput.PassWord=="") userInput.PassWord=user.PassWord;
             Assign.Partial(userInput, user);
             _unitOfWorkRepository.UserRepository.Update(user);
             return _mapper.Map<UserDto>(user);

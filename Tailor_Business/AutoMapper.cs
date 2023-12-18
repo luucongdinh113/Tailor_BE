@@ -64,6 +64,9 @@ namespace Tailor_Infrastructure
 
             CreateMap<ImagesProduct, ImageDto>();
             CreateMap<CreateImageCommand, CreateImage>();
+
+            CreateMap<CreateImageCommand, CreateImage>();
+            CreateMap<Notify, NotifyDto>();
         }
     }
 }

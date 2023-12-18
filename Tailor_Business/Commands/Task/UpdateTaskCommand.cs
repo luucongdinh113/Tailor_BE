@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,9 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Tailor_Business.Commons;
 using Tailor_Domain.Entities;
+using Tailor_Infrastructure;
 using Tailor_Infrastructure.Dto.Task;
 using Tailor_Infrastructure.Dto.User;
 using Tailor_Infrastructure.Repositories.IRepositories;
+using Tailor_Infrastructure.Services.IServices;
 
 namespace Tailor_Business.Commands.User
 {
@@ -39,15 +42,29 @@ namespace Tailor_Business.Commands.User
         {
             private readonly IUnitOfWork _unitOfWorkRepository;
             private readonly IMapper _mapper;
-            public UpdateTaskHandlerCommand(IUnitOfWork unitOfWorkRepository, IMapper mapper)
+            private readonly ICreateNotify _createNotify;
+            private readonly TaiLorContext _context;
+            public UpdateTaskHandlerCommand(IUnitOfWork unitOfWorkRepository, IMapper mapper, ICreateNotify createNotify, TaiLorContext context)
             {
                 _unitOfWorkRepository = unitOfWorkRepository;
                 _mapper = mapper;
+                _createNotify = createNotify;
+                _context = context;
             }
 
-            public Task<TaskDto> Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
+            public async Task<TaskDto> Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
             {
                 var updateTask = _mapper.Map<UpdateTask>(request);
+                var task = await _context.Tasks.Include(c => c.Product).Where(c => c.Id == request.Id).FirstOrDefaultAsync() ??
+                                    throw new Exception($"Not found object Task has Id = {request.Id}");
+                if (task.Status != request.Status)
+                {
+                    await _createNotify.CreateNotifyAsync(task, request.Status, null);
+                }
+                else if (task.Percent != request.Percent)
+                {
+                    await _createNotify.CreateNotifyAsync(task, "", request.Percent);
+                }
                 if (request.Status == "complete")
                 {
                     updateTask.CompleteDate = DateTime.UtcNow;
@@ -60,8 +77,12 @@ namespace Tailor_Business.Commands.User
                 }
                 else if (request.Status == "todo") updateTask.Percent = 0;
 
-                if (request.Percent == 100 && request.Status != "complete") updateTask.Status = "done";
-                return System.Threading.Tasks.Task.FromResult(_unitOfWorkRepository.TaskRepository.UpdateTask(updateTask));
+                if (request.Percent == 100 && request.Status != "complete")
+                {
+                    await _createNotify.CreateNotifyAsync(task, request.Status, null);
+                    updateTask.Status = "done";
+                }
+                return _unitOfWorkRepository.TaskRepository.UpdateTask(updateTask);
             }
         }
     }

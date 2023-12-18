@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tailor_Infrastructure;
 
@@ -10,9 +11,11 @@ using Tailor_Infrastructure;
 namespace Tailor_Infrastructure.Migrations
 {
     [DbContext(typeof(TaiLorContext))]
-    partial class TaiLorContextModelSnapshot : ModelSnapshot
+    [Migration("20231211033532_addColumnLiked")]
+    partial class addColumnLiked
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

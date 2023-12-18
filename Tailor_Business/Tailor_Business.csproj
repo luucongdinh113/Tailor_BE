@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Queries\Notify\" />
     <Folder Include="Queries\Product\" />
     <Folder Include="Logs\" />
     <Folder Include="Services\IServices\" />

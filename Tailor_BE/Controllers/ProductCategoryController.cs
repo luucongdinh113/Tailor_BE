@@ -36,12 +36,15 @@ namespace Tailor_BE.Controllers
             return Ok(await _mediator.Send(request, cancellation));
         }
 
+
+        [AllowAnonymous]
         [HttpGet("GetAllProductCategory")]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             return Ok(await _mediator.Send(new GetAllProductCategoryQuery(), cancellationToken));
         }
 
+        [AllowAnonymous]
         [HttpGet("GetByIdProductCategory/{id}")]
         public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {

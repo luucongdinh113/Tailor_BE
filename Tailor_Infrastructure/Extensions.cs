@@ -21,6 +21,7 @@ namespace Tailor_Infrastructure
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ILoggedUserService, LoggedUserService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<ICreateNotify, CreateNotify>();
             services.Configure<MailSetting>(configuration.GetSection(nameof(MailSetting)));
 
             ServerVersion serverVersion = ServerVersion.Create(new Version("8.0.20"), Pomelo.EntityFrameworkCore.MySql.Infrastructure.ServerType.MySql);

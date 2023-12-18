@@ -52,11 +52,11 @@ namespace Tailor_Business.Commands.User
                 using var tr = await _unitOfWorkRepository.BeginTransactionAsync(cancellationToken);
                 try
                 {
-                    if (_unitOfWorkRepository.UserRepository.CheckUserExist(request.Phone))
-                        throw new Exception($"User has phone {request.Phone} in DB");
                     request.DateOfJoing = DateTime.UtcNow;
                     request.UserName= request.UserName==""?request.Phone:request.UserName;
-                    request.PassWord = request.PassWord == ""?request.Phone:request.PassWord;
+                    if (_unitOfWorkRepository.UserRepository.CheckUserExist(request.UserName))
+
+                        request.PassWord = request.PassWord == ""?request.Phone:request.PassWord;
                     request.PassWord = PasswordHasher.HashPassword(request.PassWord);
                     var createUser = _mapper.Map<CreateUser>(request);
                     _unitOfWorkRepository.UserRepository.CreateUser(createUser);
@@ -66,7 +66,7 @@ namespace Tailor_Business.Commands.User
                 catch
                 {
                     _unitOfWorkRepository.RollBack(cancellationToken);
-                    return Unit.Value;
+                    throw new Exception($"User has UserName {request.UserName} in DB");
                 }
             }
         }

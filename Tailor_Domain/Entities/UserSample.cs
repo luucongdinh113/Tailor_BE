@@ -14,6 +14,7 @@ namespace Tailor_Domain.Entities
         [ForeignKey(nameof(UserId))]
         public Guid UserId { get; set; }
         public User User { get; set; } = default!;
+        public bool Liked{ get; set; }
 
         [ForeignKey(nameof(SampleId))]
         public int SampleId { get; set; }

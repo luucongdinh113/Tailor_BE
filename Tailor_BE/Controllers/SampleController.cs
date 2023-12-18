@@ -52,5 +52,12 @@ namespace Tailor_BE.Controllers
         {
             return Ok(await _mediator.Send(new GetSamplesQuery(), cancellation));
         }
+
+        [AllowAnonymous]
+        [HttpGet("GetSample")]
+        public async Task<IActionResult> GetSample(int id, CancellationToken cancellation)
+        {
+            return Ok(await _mediator.Send(new GetSampleQuery() { Id=id}, cancellation));
+        }
     }
 }
